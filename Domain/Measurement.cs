@@ -4,6 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+namespace Domain
+{
+    public class Measurement
+    {
+        /// <summary>
+        /// Id of measurement
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Date the measurement is taken
         /// </summary>
         public DateTime Date { get; set; }
 

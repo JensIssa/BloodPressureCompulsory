@@ -6,6 +6,12 @@ namespace Domain
     {
 
         /// <summary>
+        /// The Patient's social security number.
+        /// </summary>
+
+        public string SSN { get; set; }
+
+        /// <summary>
         /// The name of the patient
         /// </summary>
         public string Name { get; set; }
@@ -16,15 +22,9 @@ namespace Domain
         public string Émail { get; set; }
 
         /// <summary>
-        /// The Patient's social security number.
-        /// </summary>
-
-        public string SSN { get; set; }
-
-        /// <summary>
         /// 
         /// </summary>
-      //  public ICollection<Measurement> measurements { get; set; }
+        public ICollection<Measurement> measurements { get; set; }
 
     }
 }

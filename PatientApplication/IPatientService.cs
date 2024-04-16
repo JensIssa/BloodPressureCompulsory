@@ -1,8 +1,16 @@
-﻿namespace PatientApplication
+﻿using Domain;
+using PatientApplication.DTO;
+
+namespace PatientApplication
 {
-   public interface IPatientService
+    public interface IPatientService
 
     {
+
+        List<Patient> GetAllPatients();
+
+        
+
 
 
     }

@@ -1,5 +1,5 @@
 using PatientApplication;
-using Patientinfrastructure;
+using PatientInfrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

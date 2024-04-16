@@ -3,15 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{C7E2A627-DBE1-49DF-AEA1-9B2FC7C8FB8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{C7E2A627-DBE1-49DF-AEA1-9B2FC7C8FB8A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patient", "Patient", "{EF936FD0-337D-46C5-8188-102FC52490AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientRepository", "PatientRepository\PatientRepository.csproj", "{C6EA7795-181A-43E4-B378-8374DD2008FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientRepository", "PatientRepository\PatientRepository.csproj", "{C6EA7795-181A-43E4-B378-8374DD2008FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientApplication", "PatientApplication\PatientApplication.csproj", "{ACD2853C-9977-423F-A35F-F0E73069A528}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientApplication", "PatientApplication\PatientApplication.csproj", "{ACD2853C-9977-423F-A35F-F0E73069A528}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientService", "PatientService\PatientService.csproj", "{9B95C776-FBD9-40C8-9970-A898273CABAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientService", "PatientService\PatientService.csproj", "{9B95C776-FBD9-40C8-9970-A898273CABAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Measurement", "Measurement", "{2846AFD2-87DC-41B4-9416-0009CCF1AB8A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasurementApplication", "MeasurementApplication\MeasurementApplication.csproj", "{77C09BA5-74AC-45DF-84CB-00A9EE42AAEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasurementInfrastructure", "MeasurementRepository\MeasurementInfrastructure.csproj", "{5C8FFF0D-C91E-43AA-9421-2CA130F98BC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeasurementService", "MeasurementService\MeasurementService.csproj", "{B2ABB8BE-B229-4716-8BEC-A52528B75583}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +43,18 @@ Global
 		{9B95C776-FBD9-40C8-9970-A898273CABAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B95C776-FBD9-40C8-9970-A898273CABAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B95C776-FBD9-40C8-9970-A898273CABAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C09BA5-74AC-45DF-84CB-00A9EE42AAEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C09BA5-74AC-45DF-84CB-00A9EE42AAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C09BA5-74AC-45DF-84CB-00A9EE42AAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C09BA5-74AC-45DF-84CB-00A9EE42AAEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C8FFF0D-C91E-43AA-9421-2CA130F98BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C8FFF0D-C91E-43AA-9421-2CA130F98BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C8FFF0D-C91E-43AA-9421-2CA130F98BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C8FFF0D-C91E-43AA-9421-2CA130F98BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2ABB8BE-B229-4716-8BEC-A52528B75583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2ABB8BE-B229-4716-8BEC-A52528B75583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2ABB8BE-B229-4716-8BEC-A52528B75583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2ABB8BE-B229-4716-8BEC-A52528B75583}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +63,9 @@ Global
 		{C6EA7795-181A-43E4-B378-8374DD2008FB} = {EF936FD0-337D-46C5-8188-102FC52490AF}
 		{ACD2853C-9977-423F-A35F-F0E73069A528} = {EF936FD0-337D-46C5-8188-102FC52490AF}
 		{9B95C776-FBD9-40C8-9970-A898273CABAD} = {EF936FD0-337D-46C5-8188-102FC52490AF}
+		{77C09BA5-74AC-45DF-84CB-00A9EE42AAEF} = {2846AFD2-87DC-41B4-9416-0009CCF1AB8A}
+		{5C8FFF0D-C91E-43AA-9421-2CA130F98BC0} = {2846AFD2-87DC-41B4-9416-0009CCF1AB8A}
+		{B2ABB8BE-B229-4716-8BEC-A52528B75583} = {2846AFD2-87DC-41B4-9416-0009CCF1AB8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A943E78-F28D-4141-9DB0-AB7E73C04990}

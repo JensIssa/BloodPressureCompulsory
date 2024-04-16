@@ -1,0 +1,6 @@
+@MeasurementService_HostAddress = http://localhost:5234
+
+GET {{MeasurementService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,7 +1,9 @@
 ﻿namespace PatientApplication
 {
-    public class Class1
+   public interface IPatientService
+
     {
+
 
     }
 }

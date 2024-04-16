@@ -1,7 +1,12 @@
 ﻿namespace PatientRepository
 {
-    public class Class1
+    public class IPatientRepository
     {
+        public IPatientRepository() 
+        {
+            
+        
+        }
 
     }
 }

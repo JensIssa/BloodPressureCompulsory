@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patient", "Patient", "{EF936FD0-337D-46C5-8188-102FC52490AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patientinfrastructure", "PatientRepository\Patientinfrastructure.csproj", "{C6EA7795-181A-43E4-B378-8374DD2008FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientInfrastructure", "PatientInfrastructure\PatientInfrastructure.csproj", "{C6EA7795-181A-43E4-B378-8374DD2008FB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientApplication", "PatientApplication\PatientApplication.csproj", "{ACD2853C-9977-423F-A35F-F0E73069A528}"
 EndProject
@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Measurement", "Measurement"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasurementApplication", "MeasurementApplication\MeasurementApplication.csproj", "{77C09BA5-74AC-45DF-84CB-00A9EE42AAEF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasurementInfrastructure", "MeasurementRepository\MeasurementInfrastructure.csproj", "{5C8FFF0D-C91E-43AA-9421-2CA130F98BC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasurementInfrastructure", "MeasurementInfrastructure\MeasurementInfrastructure.csproj", "{5C8FFF0D-C91E-43AA-9421-2CA130F98BC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeasurementService", "MeasurementService\MeasurementService.csproj", "{B2ABB8BE-B229-4716-8BEC-A52528B75583}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasurementService", "MeasurementService\MeasurementService.csproj", "{B2ABB8BE-B229-4716-8BEC-A52528B75583}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

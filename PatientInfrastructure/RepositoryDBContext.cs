@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Patientinfrastructure
+namespace PatientInfrastructure
 {
     public class RepositoryDBContext : DbContext
     {

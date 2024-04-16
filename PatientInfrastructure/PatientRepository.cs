@@ -40,6 +40,11 @@ namespace PatientInfrastructure
             return _dbContext.Patients.ToList();
         }
 
+        public Patient GetPatient(int ssn)
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdatePatient(int ssn)
         {
             var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  Measurement-db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      MSSQL_SA_PASSWORD: "SuperSecret7!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+  Patient-db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      MSSQL_SA_PASSWORD: "SuperSecret7!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1434:1433"
+
+  measurementservice:
+    build:
+      context: .
+      dockerfile: MeasurementService/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - Measurement-db
+
+  patientservice:
+    build:
+      context: .
+      dockerfile: PatientService/Dockerfile
+    ports:
+      - "8090:80"
+    depends_on:
+      - Patient-db
+
+volumes:
+  measurement-mssql-data:
+  patient-mssql-data:

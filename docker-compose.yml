@@ -20,7 +20,7 @@ services:
   measurementservice:
     build:
       context: .
-      dockerfile: MeasurementService/Dockerfile
+      dockerfile: ./MeasurementService/Dockerfile
     ports:
       - "8080:80"
     depends_on:
@@ -56,7 +56,6 @@ services:
       - ./Frontend/angular-PatientUI/src:/app/src:delegated
     depends_on:
       - patientservice
-
 
 volumes:
   measurement-mssql-data:

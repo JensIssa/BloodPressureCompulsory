@@ -24,7 +24,7 @@ namespace Domain
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<Measurement> measurements { get; set; }
+      //  public ICollection<Measurement> measurements { get; set; }
 
     }
 }

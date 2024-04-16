@@ -29,11 +29,34 @@ services:
   patientservice:
     build:
       context: .
-      dockerfile: PatientService/Dockerfile
+      dockerfile: ./PatientService/Dockerfile
     ports:
       - "8090:80"
     depends_on:
       - Patient-db
+
+  doctoruifrontend:
+    ports:
+      - "8070:80"
+    build:
+      context: .
+      dockerfile: ./Frontend/angular-DoctorUI/Dockerfile
+    volumes:
+      - ./Frontend/angular-DoctorUI/src:/app/src:delegated
+    depends_on:
+      - measurementservice
+
+  patientuifrontend:
+    ports:
+      - "8060:80"
+    build:
+      context: .
+      dockerfile: ./Frontend/angular-PatientUI/Dockerfile
+    volumes:
+      - ./Frontend/angular-PatientUI/src:/app/src:delegated
+    depends_on:
+      - patientservice
+
 
 volumes:
   measurement-mssql-data:

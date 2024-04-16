@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace MeasurementInfrastructure.Interfaces
 {
-    internal interface IMeasurementRepository
+    /// <summary>
+    /// Interface for the measurement repository
+    /// </summary>
+    public interface IMeasurementRepository
     {
+
     }
 }

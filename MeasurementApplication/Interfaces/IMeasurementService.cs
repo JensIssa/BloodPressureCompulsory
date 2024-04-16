@@ -11,6 +11,9 @@ namespace MeasurementApplication.Interfaces
     /// </summary>
     public interface IMeasurementService
     {
-
+        /// <summary>
+        /// Rebuilds the Measurement database
+        /// </summary>
+        void Rebuild();
     }
 }

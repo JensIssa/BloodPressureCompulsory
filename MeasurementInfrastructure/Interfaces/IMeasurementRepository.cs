@@ -11,6 +11,9 @@ namespace MeasurementInfrastructure.Interfaces
     /// </summary>
     public interface IMeasurementRepository
     {
-
+        /// <summary>
+        /// Rebuilds the Measurement database
+        /// </summary>
+        void Rebuild();
     }
 }

@@ -7,6 +7,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddLogging(logBuilder =>
+{
+    logBuilder.AddSeq("http://seq:5341");
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

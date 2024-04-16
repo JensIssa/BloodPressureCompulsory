@@ -1,3 +1,6 @@
+using PatientApplication;
+using Patientinfrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,11 +10,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region AutoMapper
+
+
+#endregion
+
 builder.Services.AddLogging(logBuilder =>
 {
     logBuilder.AddSeq("http://seq:5341");
 });
 
+
+#region Depedency Injection
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IPatientService, PatientApplication.PatientService>();
+builder.Services.AddDbContext<RepositoryDBContext>();
+#endregion
 
 var app = builder.Build();
 

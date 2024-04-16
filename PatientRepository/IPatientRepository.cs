@@ -1,13 +1,12 @@
-﻿namespace PatientRepository
+﻿namespace Patientinfrastructure
 {
-    public class IPatientRepository
+    public interface IPatientRepository
     {
-        public IPatientRepository() 
-        {
+        
 
             
         
         }
 
     }
-}
+

@@ -19,7 +19,8 @@ builder.Services.AddSwaggerGen();
 #region AutoMapper
 var mapper = new MapperConfiguration(config =>
 {
-    config.CreateMap<MeasurementDTO, Measurement>();
+    config.CreateMap<CreateMeasurementDTO, Measurement>();
+    config.CreateMap<UpdateMeasurementDTO, Measurement>();
 }).CreateMapper();
 builder.Services.AddSingleton(mapper);
 #endregion

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace MeasurementApplication.DTO
 {
-    public class MeasurementDTO
+    public class UpdateMeasurementDTO
     {
+        public int Id { get; set; }
+        
         public int Systolic { get; set; }
         public int Diastolic { get; set; }
-
     }
 }

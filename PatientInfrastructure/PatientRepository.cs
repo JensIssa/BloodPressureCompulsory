@@ -17,42 +17,51 @@ namespace PatientInfrastructure
             _dbContext = dbContext;
         }
 
-        public Patient CreatePatient(Patient patient)
+        public async Task<Patient> CreatePatient(Patient patient)
         {
             _dbContext.Patients.Add(patient);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return patient;
 
         }
 
-        public void DeletePatient(int ssn)
+        public async Task<Patient> DeletePatient(int ssn)
         {
             var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             if (patient != null)
             {
                 _dbContext.Patients.Remove(patient);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
+            return patient;
         }
 
-        public List<Patient> GetAllPatients()
+        public Task<List<Patient>> GetAllPatients()
         {
-            return _dbContext.Patients.ToList();
+            return _dbContext.Patients.ToListAsync();
         }
 
-        public Patient GetPatient(int ssn)
+        public async Task<Patient> GetPatient(int ssn)
         {
-            throw new NotImplementedException();
+            var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
+            return  patient;
         }
 
-        public void UpdatePatient(int ssn)
+        public void RebuildDb()
+        {
+            _dbContext.Database.EnsureDeleted();
+            _dbContext.Database.EnsureCreated();
+        }
+
+        public async Task<Patient> UpdatePatient(int ssn)
         {
             var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             if (patient != null)
             {
                 _dbContext.Patients.Update(patient);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
+            return patient;
         }
     }
 }

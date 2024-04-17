@@ -15,6 +15,10 @@ namespace PatientInfrastructure
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=Patient-db;Database=Measurement;User Id=sa;Password=SuperSecret7!;Trusted_Connection=False;TrustServerCertificate=True;");
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

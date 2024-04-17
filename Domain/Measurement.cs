@@ -29,6 +29,11 @@ namespace Domain
         public int Diastolic { get; set; }
 
         /// <summary>
+        /// Indicates if the measurement has been marked as seen by the doctor
+        /// </summary>
+        public bool IsSeen { get; set; }
+
+        /// <summary>
         /// Patient's social security number
         /// </summary>
         public string PatientSSN { get; set; }

@@ -21,8 +21,8 @@ namespace MeasurementInfrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Measurement>().HasKey(e => e.Id);
-
             modelBuilder.Entity<Measurement>().Property(m => m.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Measurement>().Property(m => m.IsSeen).HasDefaultValue(false);
         }
 
     }

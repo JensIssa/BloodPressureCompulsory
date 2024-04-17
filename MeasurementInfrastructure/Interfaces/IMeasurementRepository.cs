@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,12 @@ namespace MeasurementInfrastructure.Interfaces
         /// Rebuilds the Measurement database
         /// </summary>
         void Rebuild();
+
+        /// <summary>
+        /// Adds a measurement to the database
+        /// </summary>
+        /// <param name="measurement"></param>
+        /// <returns></returns>
+        Task<Measurement> AddMeasurementAsync(Measurement measurement);
     }
 }

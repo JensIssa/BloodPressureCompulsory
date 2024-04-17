@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain;
+using MeasurementApplication.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,13 @@ namespace MeasurementApplication.Interfaces
     /// </summary>
     public interface IMeasurementService
     {
+        /// <summary>
+        /// Adds a measurement to the database
+        /// </summary>
+        /// <param name="measurementDto"></param>
+        /// <returns></returns>
+        Task<Measurement> AddMeasurementAsync(MeasurementDTO measurementDto);
+
         /// <summary>
         /// Rebuilds the Measurement database
         /// </summary>

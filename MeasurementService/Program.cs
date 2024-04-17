@@ -1,4 +1,7 @@
+using AutoMapper;
+using Domain;
 using MeasurementApplication;
+using MeasurementApplication.DTO;
 using MeasurementApplication.Interfaces;
 using MeasurementInfrastructure;
 using MeasurementInfrastructure.Interfaces;
@@ -14,7 +17,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region AutoMapper
-
+var mapper = new MapperConfiguration(config =>
+{
+    config.CreateMap<MeasurementDTO, Measurement>();
+}).CreateMapper();
+builder.Services.AddSingleton(mapper);
 #endregion
 
 

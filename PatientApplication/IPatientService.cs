@@ -12,7 +12,7 @@ namespace PatientApplication
 
         Task<Patient> AddPatient(PatientDTO patient);
 
-        Task UpdatePatient(string ssn);
+        Task UpdatePatient(string ssn, PatientDTO patient);
 
         Task DeletePatient(string ssn);
 

@@ -42,6 +42,7 @@ namespace PatientService.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet]        
         public async Task<IActionResult> GetAllPatients()
         {
             _logger.LogInformation("Get all patients");
@@ -59,13 +60,13 @@ namespace PatientService.Controllers
         }
 
         [HttpPut]
-        [Route("UpdatePatient")]
-        public async Task<IActionResult> UpdatePatient(string ssn)
+        [Route("UpdatePatient/{ssn}")]
+        public async Task<IActionResult> UpdatePatient([FromRoute] string ssn, [FromBody] PatientDTO patient)
         {
             _logger.LogInformation($"Update the patient with following ssn {ssn}");
             try
             {
-                await _patientService.UpdatePatient(ssn);
+                await _patientService.UpdatePatient(ssn, patient);
                 return Ok();
             }
             catch (Exception ex)

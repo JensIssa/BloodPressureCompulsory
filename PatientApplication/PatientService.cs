@@ -42,9 +42,9 @@ namespace PatientApplication
             return await _repository.GetAllPatients();
         }
 
-        public async Task UpdatePatient(string ssn)
+        public async Task UpdatePatient(string ssn, PatientDTO patient)
         {
-            await _repository.UpdatePatient(ssn);
+            await _repository.UpdatePatient(ssn, _mapper.Map<Patient>(patient));
         }
 
         public async Task DeletePatient(string ssn)

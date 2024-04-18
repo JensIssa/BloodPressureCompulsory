@@ -10,7 +10,7 @@ namespace PatientInfrastructure
 
        Task<Patient> CreatePatient(Patient patient);
 
-       Task UpdatePatient(string ssn);
+       Task UpdatePatient(string ssn, Patient patient);
 
        Task DeletePatient(string ssn);
 

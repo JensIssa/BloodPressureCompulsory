@@ -52,12 +52,14 @@ namespace PatientInfrastructure
             _dbContext.Database.EnsureCreated();
         }
 
-        public async Task UpdatePatient(string ssn)
+        public async Task UpdatePatient(string ssn, Patient patient)
         {
-            var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
+            var patientUpdate = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             if (patient != null)
             {
-                _dbContext.Patients.Update(patient);
+                patientUpdate.Email = patient.Email;
+                patientUpdate.Name = patient.Name;
+                _dbContext.Patients.Update(patientUpdate);
                 await _dbContext.SaveChangesAsync();
             }
         }

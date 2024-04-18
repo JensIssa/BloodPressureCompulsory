@@ -35,7 +35,7 @@ services:
       context: .
       dockerfile: ./PatientService/Dockerfile
     ports:
-      - "8090:8090"
+      - "8090:8080"
     depends_on:
       - Patient-db
 

@@ -12,11 +12,11 @@ namespace PatientApplication
 
         Task<Patient> AddPatient(PatientDTO patient);
 
-        Task<Patient> UpdatePatient(int ssn);
+        Task UpdatePatient(string ssn);
 
-        Task<Patient> DeletePatient(int ssn);
+        Task DeletePatient(string ssn);
 
-        Task<Patient> GetPatient(int ssn);
+        Task<Patient> GetPatient(string ssn);
 
     }
 }

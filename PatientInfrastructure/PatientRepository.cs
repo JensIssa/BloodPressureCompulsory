@@ -25,7 +25,7 @@ namespace PatientInfrastructure
 
         }
 
-        public async Task<Patient> DeletePatient(int ssn)
+        public async Task DeletePatient(string ssn)
         {
             var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             if (patient != null)
@@ -33,7 +33,6 @@ namespace PatientInfrastructure
                 _dbContext.Patients.Remove(patient);
                 await _dbContext.SaveChangesAsync();
             }
-            return patient;
         }
 
         public Task<List<Patient>> GetAllPatients()
@@ -41,7 +40,7 @@ namespace PatientInfrastructure
             return _dbContext.Patients.ToListAsync();
         }
 
-        public async Task<Patient> GetPatient(int ssn)
+        public async Task<Patient> GetPatient(string ssn)
         {
             var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             return  patient;
@@ -53,7 +52,7 @@ namespace PatientInfrastructure
             _dbContext.Database.EnsureCreated();
         }
 
-        public async Task<Patient> UpdatePatient(int ssn)
+        public async Task UpdatePatient(string ssn)
         {
             var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             if (patient != null)
@@ -61,7 +60,6 @@ namespace PatientInfrastructure
                 _dbContext.Patients.Update(patient);
                 await _dbContext.SaveChangesAsync();
             }
-            return patient;
         }
     }
 }

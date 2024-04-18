@@ -8,6 +8,8 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
+    volumes:
+      - mssql_data_measurement_db:/var/opt/mssql
 
   Patient-db:
     image: mcr.microsoft.com/azure-sql-edge:latest
@@ -16,6 +18,8 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1434:1433"
+    volumes:
+      - mssql_data_patient_db:/var/opt/mssql
 
   measurementservice:
     build:
@@ -31,7 +35,7 @@ services:
       context: .
       dockerfile: ./PatientService/Dockerfile
     ports:
-      - "8090:80"
+      - "8090:8090"
     depends_on:
       - Patient-db
 
@@ -58,5 +62,5 @@ services:
       - patientservice
 
 volumes:
-  measurement-mssql-data:
-  patient-mssql-data:
+  mssql_data_patient_db:
+  mssql_data_measurement_db:

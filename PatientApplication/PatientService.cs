@@ -31,6 +31,7 @@ namespace PatientApplication
             
             return addPatient;
         }
+
         public void RebuildDb()
         {
             _repository.RebuildDb();
@@ -41,17 +42,17 @@ namespace PatientApplication
             return await _repository.GetAllPatients();
         }
 
-        public async Task<Patient> UpdatePatient(int ssn)
+        public async Task UpdatePatient(string ssn)
         {
-            return await _repository.UpdatePatient(ssn);
+            await _repository.UpdatePatient(ssn);
         }
 
-        public Task<Patient> DeletePatient(int ssn)
+        public async Task DeletePatient(string ssn)
         {
-            return _repository.DeletePatient(ssn);
+           await _repository.DeletePatient(ssn);
         }
 
-        public Task<Patient> GetPatient(int ssn)
+        public Task<Patient> GetPatient(string ssn)
         {
             return _repository.GetPatient(ssn);
         }

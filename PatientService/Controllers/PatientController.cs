@@ -60,7 +60,7 @@ namespace PatientService.Controllers
 
         [HttpPut]
         [Route("UpdatePatient")]
-        public async Task<IActionResult> UpdatePatient(int ssn)
+        public async Task<IActionResult> UpdatePatient(string ssn)
         {
             _logger.LogInformation($"Update the patient with following ssn {ssn}");
             try
@@ -77,7 +77,7 @@ namespace PatientService.Controllers
 
         [HttpDelete]
         [Route("DeletePatient")]
-        public async Task<IActionResult> DeletePatient(int ssn)
+        public async Task<IActionResult> DeletePatient(string ssn)
         {
             _logger.LogInformation($"Delete the patient with following ssn {ssn}");
             try
@@ -94,7 +94,7 @@ namespace PatientService.Controllers
 
         [HttpGet]
         [Route("GetPatient")]
-        public async Task<IActionResult> GetPatient(int ssn)
+        public async Task<IActionResult> GetPatient(string ssn)
         {
             _logger.LogInformation($"Get the patient with following ssn {ssn}");
             try

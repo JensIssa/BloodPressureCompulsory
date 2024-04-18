@@ -17,41 +17,51 @@ namespace PatientInfrastructure
             _dbContext = dbContext;
         }
 
-        public Patient CreatePatient(Patient patient)
+        public async Task<Patient> CreatePatient(Patient patient)
         {
             _dbContext.Patients.Add(patient);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return patient;
 
         }
 
-        public void DeletePatient(int ssn)
+        public async Task DeletePatient(string ssn)
         {
             var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             if (patient != null)
             {
                 _dbContext.Patients.Remove(patient);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
 
-        public List<Patient> GetAllPatients()
+        public Task<List<Patient>> GetAllPatients()
         {
-            return _dbContext.Patients.ToList();
+            return _dbContext.Patients.ToListAsync();
         }
 
-        public Patient GetPatient(int ssn)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdatePatient(int ssn)
+        public async Task<Patient> GetPatient(string ssn)
         {
             var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
+            return  patient;
+        }
+
+        public void RebuildDb()
+        {
+            _dbContext.Database.EnsureDeleted();
+            _dbContext.Database.EnsureCreated();
+        }
+
+        public async Task UpdatePatient(string ssn, Patient patient)
+        {
+            var patientUpdate = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             if (patient != null)
             {
-                _dbContext.Patients.Update(patient);
-                _dbContext.SaveChanges();
+                patientUpdate.Email = patient.Email;
+                patientUpdate.Name = patient.Name;
+                patientUpdate.SSN = patient.SSN;
+                _dbContext.Patients.Update(patientUpdate);
+                await _dbContext.SaveChangesAsync();
             }
         }
     }

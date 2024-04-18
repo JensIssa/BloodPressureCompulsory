@@ -1,5 +1,8 @@
+using AutoMapper;
 using PatientApplication;
+using PatientApplication.DTO;
 using PatientInfrastructure;
+using Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +14,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region AutoMapper
-
-
+var mapper = new MapperConfiguration(config =>
+{
+    config.CreateMap<PatientDTO, Patient>();
+}).CreateMapper();
+builder.Services.AddSingleton(mapper);
 #endregion
 
 builder.Services.AddLogging(logBuilder =>
@@ -22,9 +28,9 @@ builder.Services.AddLogging(logBuilder =>
 
 
 #region Depedency Injection
+builder.Services.AddDbContext<RepositoryDBContext>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientService, PatientApplication.PatientService>();
-builder.Services.AddDbContext<RepositoryDBContext>();
 #endregion
 
 var app = builder.Build();

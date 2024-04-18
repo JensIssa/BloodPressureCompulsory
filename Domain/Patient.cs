@@ -19,12 +19,12 @@ namespace Domain
         /// <summary>
         /// The email of the patient
         /// </summary>
-        public string Émail { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<Measurement> measurements { get; set; }
+        public ICollection<Measurement> Measurements { get; set; }
 
     }
 }

@@ -1,19 +1,22 @@
 ﻿using Domain;
+using System.Runtime.CompilerServices;
 
 namespace PatientInfrastructure
 {
     public interface IPatientRepository
     {
 
-       List<Patient> GetAllPatients();
+        Task<List<Patient>> GetAllPatients();
 
-       Patient CreatePatient(Patient patient);
+       Task<Patient> CreatePatient(Patient patient);
 
-       void UpdatePatient(int ssn);
+       Task UpdatePatient(string ssn, Patient patient);
 
-       void DeletePatient(int ssn);
+       Task DeletePatient(string ssn);
 
-       Patient GetPatient(int ssn);
+       Task<Patient> GetPatient(string ssn);
+
+       void RebuildDb();
 
     }
 

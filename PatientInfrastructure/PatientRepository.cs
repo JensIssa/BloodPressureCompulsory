@@ -59,6 +59,7 @@ namespace PatientInfrastructure
             {
                 patientUpdate.Email = patient.Email;
                 patientUpdate.Name = patient.Name;
+                patientUpdate.SSN = patient.SSN;
                 _dbContext.Patients.Update(patientUpdate);
                 await _dbContext.SaveChangesAsync();
             }

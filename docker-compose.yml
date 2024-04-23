@@ -22,7 +22,7 @@ services:
       - mssql_data_patient_db:/var/opt/mssql
 
   measurementservice:
-    image: ${{ secrets.DOCKER_USERNAME }}/measurementservice:latest
+    image: jensissa/measurementservice:latest
     build:
       context: .
       dockerfile: ./MeasurementService/Dockerfile
@@ -32,7 +32,7 @@ services:
       - Measurement-db
 
   patientservice:
-    image: ${{ secrets.DOCKER_USERNAME }}/patientservice:latest
+    image: jensissa/patientservice:latest
     build:
       context: .
       dockerfile: ./PatientService/Dockerfile
@@ -42,7 +42,7 @@ services:
       - Patient-db
 
   doctoruifrontend:
-    image: ${{ secrets.DOCKER_USERNAME }}/doctoruifrontend:latest
+    image: jensissa/doctoruifrontend:latest
     ports:
       - "8070:80"
     build:
@@ -54,7 +54,7 @@ services:
       - measurementservice
 
   patientuifrontend:
-    image: ${{ secrets.DOCKER_USERNAME }}/patientuifrontend:latest
+    image: jensissa/patientuifrontend:latest
     ports:
       - "8060:80"
     build:

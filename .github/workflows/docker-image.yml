@@ -2,35 +2,38 @@ name: .NET Build & Runs test. Builds and pushes docker images to Docker Hub.
 
 on:
   pull_request:
-    branches: [ "master", "Development" ]
+    branches: [ "master", "Development", "Fix-docker-compose" ]
+  push:
+    branches: ["Fix-docker-compose"]
 
 jobs:
-  build:
+  build_and_push:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout the repository
+        uses: actions/checkout@v4
 
-    # .NET build and test steps
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      # .NET build and test steps
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
 
-    # Docker build and push steps
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      # Docker build and push steps using docker-compose
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker images
-      run: |
-        docker-compose build
-        docker-compose push
+      - name: Build and push Docker images using docker-compose
+        run: |
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push

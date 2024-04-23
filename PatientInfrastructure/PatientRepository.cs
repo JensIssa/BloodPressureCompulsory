@@ -1,8 +1,10 @@
 ﻿using Domain;
+using Domain.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,7 +39,7 @@ namespace PatientInfrastructure
 
         public Task<List<Patient>> GetAllPatients()
         {
-            return _dbContext.Patients.ToListAsync();
+            return _dbContext.Patients.Include(p => p.Measurements).ToListAsync();
         }
 
         public async Task<Patient> GetPatient(string ssn)
@@ -63,6 +65,18 @@ namespace PatientInfrastructure
                 _dbContext.Patients.Update(patientUpdate);
                 await _dbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task AddMeasurementToPatient(Measurement measurement)
+        {
+            var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(measurement.PatientSSN));
+
+            if (patient != null)
+            {
+                patient.Measurements.Add(measurement);
+                await _dbContext.SaveChangesAsync();
+            }
+
         }
     }
 }

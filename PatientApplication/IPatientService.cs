@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.DTO;
 using PatientApplication.DTO;
 
 namespace PatientApplication
@@ -49,5 +50,6 @@ namespace PatientApplication
 
         Task<Patient> GetPatient(string ssn);
 
+        Task AddMeasurementToPatient(Measurement measurement);
     }
 }

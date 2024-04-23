@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.DTO;
 using System.Runtime.CompilerServices;
 
 namespace PatientInfrastructure
@@ -16,7 +17,10 @@ namespace PatientInfrastructure
 
        Task<Patient> GetPatient(string ssn);
 
-       void RebuildDb();
+       Task AddMeasurementToPatient(Measurement measurement);
+
+
+        void RebuildDb();
 
     }
 

@@ -3,6 +3,10 @@ using PatientApplication;
 using PatientApplication.DTO;
 using PatientInfrastructure;
 using Domain;
+using EasyNetQ;
+using Messaging;
+using Messaging.SharedMessaging;
+using PatientService.MessageHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +36,10 @@ builder.Services.AddDbContext<RepositoryDBContext>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientService, PatientApplication.PatientService>();
 #endregion
+
+builder.Services.AddSingleton(new MessageClient(RabbitHutch.CreateBus("host=rabbitmq;port=5672;virtualHost=/;username=guest;password=guest")));
+
+builder.Services.AddHostedService<AddMeasurementToPatientHandler>();
 
 builder.Services.AddCors(options =>
 {

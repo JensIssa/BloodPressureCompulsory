@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PatientApplication;
 using PatientApplication.DTO;
@@ -110,5 +111,12 @@ namespace PatientService.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("AddMeasurementToPatient")]
+        public async Task<IActionResult> AddMeasurementToPatient([FromBody] Measurement measurement )
+        {
+            await _patientService.AddMeasurementToPatient(measurement);
+            return Ok();
+        }
     }
 }

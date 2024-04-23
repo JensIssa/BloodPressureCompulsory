@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Domain;
+using Messaging;
+using Messaging.SharedMessaging;
 using PatientApplication.DTO;
 using PatientInfrastructure;
 using System;
@@ -15,12 +17,13 @@ namespace PatientApplication
 
         private readonly IPatientRepository _repository;
         private readonly IMapper _mapper;
+        private readonly MessageClient _messageClient;
 
-        public PatientService(IPatientRepository repository, IMapper mapper)
+        public PatientService(IPatientRepository repository, IMapper mapper, MessageClient messageClient)
         {
             _repository = repository;
             _mapper = mapper; 
-        
+            _messageClient = messageClient;
         }
 
         public async Task<Patient> AddPatient(PatientDTO patient)
@@ -49,12 +52,19 @@ namespace PatientApplication
 
         public async Task DeletePatient(string ssn)
         {
+           await _messageClient.Send(new DeleteMeasurementsFromPatientSSN($"Deleting Measurements from Patient: {ssn}", ssn), "DeleteMeasurementsFromPatient");
+
            await _repository.DeletePatient(ssn);
         }
 
         public Task<Patient> GetPatient(string ssn)
         {
             return _repository.GetPatient(ssn);
+        }
+
+        public async Task AddMeasurementToPatient(Measurement measurement)
+        {
+            await _repository.AddMeasurementToPatient(measurement);
         }
     }
 }

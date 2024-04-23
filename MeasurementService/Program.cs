@@ -1,11 +1,14 @@
 using AutoMapper;
 using Domain;
+using EasyNetQ;
 using MeasurementApplication;
 using MeasurementApplication.DTO;
 using MeasurementApplication.Interfaces;
 using MeasurementInfrastructure;
 using MeasurementInfrastructure.Interfaces;
 using MeasurementRepository;
+using Messaging;
+using MessurementService.MessageHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +40,10 @@ builder.Services.AddScoped<IMeasurementRepository, MeasurementRepo>();
 builder.Services.AddScoped<IMeasurementService, MeasurementCrud>();
 
 #endregion
+
+builder.Services.AddSingleton(new MessageClient(RabbitHutch.CreateBus("host=rabbitmq;port=5672;virtualHost=/;username=guest;password=guest")));
+
+builder.Services.AddHostedService<DeleteMeasurementsFromPatientHandler>();
 
 builder.Services.AddCors(options =>
 {

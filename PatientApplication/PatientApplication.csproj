@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Messaging\Messaging.csproj" />
     <ProjectReference Include="..\PatientInfrastructure\PatientInfrastructure.csproj" />
   </ItemGroup>
 

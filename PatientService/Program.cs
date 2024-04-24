@@ -3,8 +3,15 @@ using PatientApplication;
 using PatientApplication.DTO;
 using PatientInfrastructure;
 using Domain;
+using FeatureHubSDK;
+using PatientService.FeatureToggle;
 
 var builder = WebApplication.CreateBuilder(args);
+
+FeatureLogging.DebugLogger += (sender, s) => Console.WriteLine("DEBUG: " + s + "\n");
+FeatureLogging.TraceLogger += (sender, s) => Console.WriteLine("TRACE: " + s + "\n");
+FeatureLogging.InfoLogger += (sender, s) => Console.WriteLine("INFO: " + s + "\n");
+FeatureLogging.ErrorLogger += (sender, s) => Console.WriteLine("ERROR: " + s + "\n");
 
 // Add services to the container.
 
@@ -31,6 +38,7 @@ builder.Services.AddLogging(logBuilder =>
 builder.Services.AddDbContext<RepositoryDBContext>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientService, PatientApplication.PatientService>();
+builder.Services.AddScoped<IFeatureToggle, FeatureToggle>();
 #endregion
 
 builder.Services.AddCors(options =>

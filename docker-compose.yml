@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  featurehub:
+    image: featurehub/party-server:latest
+    restart: always
+    volumes:
+      - featurehub-h2-data:/db
+    ports:
+      - 8085:8085
+
   Measurement-db:
     image: mcr.microsoft.com/azure-sql-edge:latest
     environment:
@@ -29,6 +37,7 @@ services:
       - "8080:8080"
     depends_on:
       - Measurement-db
+      - featurehub
 
   patientservice:
     build:
@@ -38,6 +47,7 @@ services:
       - "8090:8080"
     depends_on:
       - Patient-db
+      - featurehub
 
   doctoruifrontend:
     ports:
@@ -64,3 +74,4 @@ services:
 volumes:
   mssql_data_patient_db:
   mssql_data_measurement_db:
+  featurehub-h2-data:

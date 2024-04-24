@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Domain;
+using FeatureHubSDK;
 using PatientApplication.DTO;
 using PatientInfrastructure;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +17,17 @@ namespace PatientApplication
 
         private readonly IPatientRepository _repository;
         private readonly IMapper _mapper;
+        private IClientContext _fh;
+        private readonly EdgeFeatureHubConfig config;
+
+       
 
         public PatientService(IPatientRepository repository, IMapper mapper)
         {
+            
             _repository = repository;
-            _mapper = mapper; 
-        
+            _mapper = mapper;
+            
         }
 
         public async Task<Patient> AddPatient(PatientDTO patient)
@@ -28,7 +35,7 @@ namespace PatientApplication
             var patientDTO = _mapper.Map<Patient>(patient);
 
             var addPatient = await _repository.CreatePatient(patientDTO);
-            
+
             return addPatient;
         }
 
@@ -49,7 +56,7 @@ namespace PatientApplication
 
         public async Task DeletePatient(string ssn)
         {
-           await _repository.DeletePatient(ssn);
+            await _repository.DeletePatient(ssn);
         }
 
         public Task<Patient> GetPatient(string ssn)

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FeatureHubSDK;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PatientApplication;
 using PatientApplication.DTO;
+using PatientService.FeatureToggle;
 
 namespace PatientService.Controllers
 {
@@ -12,10 +14,12 @@ namespace PatientService.Controllers
         IPatientService _patientService;
 
         private readonly ILogger<PatientController> _logger;
-        public PatientController(IPatientService patientService, ILogger<PatientController> logger)
+        private readonly IFeatureToggle _featureToggle;
+        public PatientController(IPatientService patientService, ILogger<PatientController> logger, IFeatureToggle featureToggle)
         {
             _patientService = patientService;
             _logger = logger;
+            _featureToggle = featureToggle;
         }
 
         [HttpGet]
@@ -80,6 +84,18 @@ namespace PatientService.Controllers
         [Route("DeletePatient")]
         public async Task<IActionResult> DeletePatient(string ssn)
         {
+
+
+
+            var feature = await _featureToggle.IsFeatureEnabled();
+
+            if (!feature)
+            {
+                _logger.LogInformation("Delete patient feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
+
             _logger.LogInformation($"Delete the patient with following ssn {ssn}");
             try
             {

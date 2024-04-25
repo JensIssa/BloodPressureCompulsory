@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PatientApplication;
 using PatientApplication.DTO;
+using Serilog;
 
 namespace PatientService.Controllers
 {
@@ -15,7 +16,6 @@ namespace PatientService.Controllers
         public PatientController(IPatientService patientService, ILogger<PatientController> logger)
         {
             _patientService = patientService;
-            _logger = logger;
         }
 
         [HttpGet]
@@ -28,34 +28,45 @@ namespace PatientService.Controllers
 
         [HttpPost]
         [Route("AddPatient")]
-        public async Task<IActionResult>AddPatient([FromBody] PatientDTO patient) 
+        public async Task<IActionResult> AddPatient([FromBody] PatientDTO patient)
         {
-            _logger.LogInformation($"Create the patient with following values {patient}");
-            try
+            var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
+            using (var span = tracer.StartActiveSpan("AddPatient"))
             {
-                await _patientService.AddPatient(patient);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogTrace(ex, $"Patient couldn't be added with exception message {ex}");
-                return BadRequest(ex.Message);
+                span.SetAttribute("PatientDetails", patient.ToString());
+                Log.Logger.Information($"Create the patient with following values {patient}");
+
+                try
+                {
+                    await _patientService.AddPatient(patient);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, $"Patient couldn't be added with exception message {ex}");
+                    return BadRequest(ex.Message);
+                }
             }
         }
-        [HttpGet]        
+
+        [HttpGet]
         public async Task<IActionResult> GetAllPatients()
         {
-            _logger.LogInformation("Get all patients");
+            var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
+            using (var span = tracer.StartActiveSpan("GetAllPatients"))
+            {
+                Log.Logger.Information("Get all patients");
 
-            try
-            {
-                var patients = await _patientService.GetAllPatients();
-                return Ok(patients);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogTrace(ex, $"Patients couldn't be fetched with exception message {ex}");
-                return BadRequest(ex.Message);
+                try
+                {
+                    var patients = await _patientService.GetAllPatients();
+                    return Ok(patients);
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, $"Patients couldn't be fetched with exception message {ex}");
+                    return BadRequest(ex.Message);
+                }
             }
         }
 
@@ -63,16 +74,22 @@ namespace PatientService.Controllers
         [Route("UpdatePatient/{ssn}")]
         public async Task<IActionResult> UpdatePatient([FromRoute] string ssn, [FromBody] PatientDTO patient)
         {
-            _logger.LogInformation($"Update the patient with following ssn {ssn}");
-            try
+            var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
+            using (var span = tracer.StartActiveSpan("UpdatePatient"))
+
             {
-                await _patientService.UpdatePatient(ssn, patient);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogTrace(ex, $"Patient couldn't be updated with exception message {ex}");
-                return BadRequest(ex.Message);
+                span.SetAttribute("ssn", ssn);
+                Log.Logger.Information($"Update the patient with following ssn {ssn}");
+                try
+                {
+                    await _patientService.UpdatePatient(ssn, patient);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, $"Patient couldn't be updated with exception message {ex}");
+                    return BadRequest(ex.Message);
+                }
             }
         }
 
@@ -80,16 +97,20 @@ namespace PatientService.Controllers
         [Route("DeletePatient")]
         public async Task<IActionResult> DeletePatient(string ssn)
         {
-            _logger.LogInformation($"Delete the patient with following ssn {ssn}");
-            try
+            var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
+            using (var span = tracer.StartActiveSpan("DeletePatient"))
             {
-                await _patientService.DeletePatient(ssn);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogTrace(ex, $"Patient couldn't be deleted with exception message {ex}");
-                return BadRequest(ex.Message);
+                Log.Logger.Information($"Delete the patient with following ssn {ssn}");
+                try
+                {
+                    await _patientService.DeletePatient(ssn);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogTrace(ex, $"Patient couldn't be deleted with exception message {ex}");
+                    return BadRequest(ex.Message);
+                }
             }
         }
 
@@ -97,7 +118,10 @@ namespace PatientService.Controllers
         [Route("GetPatient")]
         public async Task<IActionResult> GetPatient(string ssn)
         {
-            _logger.LogInformation($"Get the patient with following ssn {ssn}");
+            var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
+            using (var span = tracer.StartActiveSpan("GetPatient"))
+
+            Log.Logger.Information($"Get the patient with following ssn {ssn}");
             try
             {
                 var patient = await _patientService.GetPatient(ssn);
@@ -105,7 +129,7 @@ namespace PatientService.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogTrace(ex, $"Patient couldn't be fetched with exception message {ex}");
+                Log.Logger.Error(ex, $"Patient couldn't be fetched with exception message {ex}");
                 return BadRequest(ex.Message);
             }
         }

@@ -65,6 +65,22 @@ services:
     depends_on:
       - patientservice
 
+  zipkin:
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
+    restart: unless-stopped
+
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - "5342:80"
+      - "5341:5341"
+    volumes:
+      - /path/to/seq-data:/data
+    environment:
+      ACCEPT_EULA: "Y"
+
 volumes:
   mssql_data_patient_db:
   mssql_data_measurement_db:

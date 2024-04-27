@@ -20,5 +20,7 @@ namespace Messaging
         {
             await Task.Run(() => { _bus.PubSub.SubscribeAsync(topic, handler); });
         }
+
+
     }
 }

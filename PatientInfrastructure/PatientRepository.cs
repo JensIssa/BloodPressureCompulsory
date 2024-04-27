@@ -39,7 +39,7 @@ namespace PatientInfrastructure
 
         public Task<List<Patient>> GetAllPatients()
         {
-            return _dbContext.Patients.Include(p => p.Measurements).ToListAsync();
+            return _dbContext.Patients.ToListAsync();
         }
 
         public async Task<Patient> GetPatient(string ssn)
@@ -66,17 +66,6 @@ namespace PatientInfrastructure
                 await _dbContext.SaveChangesAsync();
             }
         }
-
-        public async Task AddMeasurementToPatient(Measurement measurement)
-        {
-            var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(measurement.PatientSSN));
-
-            if (patient != null)
-            {
-                patient.Measurements.Add(measurement);
-                await _dbContext.SaveChangesAsync();
-            }
-
         }
     }
-}
+

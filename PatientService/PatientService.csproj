@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MeasurementApplication\MeasurementApplication.csproj" />
-    <ProjectReference Include="..\Messaging\Messaging.csproj" />
     <ProjectReference Include="..\PatientApplication\PatientApplication.csproj" />
   </ItemGroup>
 

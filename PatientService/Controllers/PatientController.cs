@@ -110,13 +110,5 @@ namespace PatientService.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost]
-        [Route("AddMeasurementToPatient")]
-        public async Task<IActionResult> AddMeasurementToPatient([FromBody] Measurement measurement )
-        {
-            await _patientService.AddMeasurementToPatient(measurement);
-            return Ok();
-        }
     }
 }

@@ -17,8 +17,6 @@ namespace PatientInfrastructure
 
        Task<Patient> GetPatient(string ssn);
 
-       Task AddMeasurementToPatient(Measurement measurement);
-
 
         void RebuildDb();
 

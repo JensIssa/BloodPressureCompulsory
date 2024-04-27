@@ -12,7 +12,7 @@ namespace PatientApplication
         /// Gets all patients
         /// </summary>
         /// <returns></returns>
-        Task<List<Patient>> GetAllPatients();
+        Task<List<GetPatientDTO>> GetAllPatients();
         /// <summary>
         /// Rebuilds the database
         /// </summary>
@@ -48,8 +48,7 @@ namespace PatientApplication
         /// <param name="ssn">The patients social security number</param>
         /// <returns></returns>
 
-        Task<Patient> GetPatient(string ssn);
+        Task<GetPatientDTO> GetPatient(string ssn);
 
-        Task AddMeasurementToPatient(Measurement measurement);
     }
 }

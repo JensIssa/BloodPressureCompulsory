@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MeasurementInfrastructure\MeasurementInfrastructure.csproj" />
-      <ProjectReference Include="..\Messaging\Messaging.csproj" />
     </ItemGroup>
 
 </Project>

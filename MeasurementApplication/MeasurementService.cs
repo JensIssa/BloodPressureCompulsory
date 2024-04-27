@@ -3,8 +3,7 @@ using Domain;
 using MeasurementApplication.DTO;
 using MeasurementApplication.Interfaces;
 using MeasurementInfrastructure.Interfaces;
-using Messaging;
-using Messaging.SharedMessaging;
+
 
 namespace MeasurementApplication;
 
@@ -12,13 +11,11 @@ public class MeasurementCrud : IMeasurementService
 {
     private readonly IMeasurementRepository _measurementRepository;
     private readonly IMapper _mapper;
-    private readonly MessageClient _messageClient;
     
-    public MeasurementCrud(IMeasurementRepository measurementRepository, IMapper mapper, MessageClient messageClient)
+    public MeasurementCrud(IMeasurementRepository measurementRepository, IMapper mapper)
     {
         _measurementRepository = measurementRepository;
         _mapper = mapper;
-        _messageClient = messageClient;
     }
 
     public async Task<Measurement> AddMeasurementAsync(CreateMeasurementDTO measurementDto)
@@ -28,8 +25,6 @@ public class MeasurementCrud : IMeasurementService
         measurement.IsSeen = false; 
 
         var addedMeasurement = await _measurementRepository.AddMeasurementAsync(measurement);
-
-        await _messageClient.Send(new AddMeasurementToPatient($"Measurement with id {measurement.Id} added", measurement.Id, measurement.PatientSSN), "AddMeasurementToPatient");
 
         return addedMeasurement; 
     }
@@ -49,7 +44,7 @@ public class MeasurementCrud : IMeasurementService
         await _measurementRepository.DeleteMeasurementsByPatientSSNAsync(patientSSN);
     }
 
-    public async Task<IEnumerable<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN)
+    public async Task<ICollection<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN)
     {
         return await _measurementRepository.GetMeasurementsByPatientSSNAsync(patientSSN);
     }
@@ -63,6 +58,8 @@ public class MeasurementCrud : IMeasurementService
 
         await _measurementRepository.MarkMeasurementAsSeenAsync(measurementId);
     }
+
+
 
     public void Rebuild()
     {

@@ -13,7 +13,6 @@ COPY ["PatientService/PatientService.csproj", "PatientService/"]
 COPY ["MeasurementApplication/MeasurementApplication.csproj", "MeasurementApplication/"]
 COPY ["MeasurementInfrastructure/MeasurementInfrastructure.csproj", "MeasurementInfrastructure/"]
 COPY ["Domain/Domain.csproj", "Domain/"]
-COPY ["Messaging/Messaging.csproj", "Messaging/"]
 COPY ["PatientApplication/PatientApplication.csproj", "PatientApplication/"]
 COPY ["PatientInfrastructure/PatientInfrastructure.csproj", "PatientInfrastructure/"]
 RUN dotnet restore "./PatientService/PatientService.csproj"

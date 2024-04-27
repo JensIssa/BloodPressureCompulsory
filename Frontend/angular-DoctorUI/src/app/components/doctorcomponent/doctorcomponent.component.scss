@@ -1,0 +1,29 @@
+/* doctorcomponent.component.scss */
+
+.mat-table {
+  overflow: auto;
+  border-spacing: 0 8px;
+
+  tr {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    &.mat-row:not(.cdk-table-row-header):not(.cdk-table-row-footer):nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.025);
+    }
+  }
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.mat-cell {
+  font-size: 14px;
+}
+
+.mat-paginator {
+  justify-content: flex-end;
+}

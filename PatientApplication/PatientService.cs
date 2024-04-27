@@ -32,9 +32,9 @@ namespace PatientApplication
             _logger = logger;
         }
 
-        public async Task<Patient> AddPatient(PatientDTO patient)
+        public async Task<PatientBE> AddPatient(PatientDTO patient)
         {
-            var patientDTO = _mapper.Map<Patient>(patient);
+            var patientDTO = _mapper.Map<PatientBE>(patient);
 
             var addPatient = await _repository.CreatePatient(patientDTO);
             
@@ -46,10 +46,10 @@ namespace PatientApplication
             _repository.RebuildDb();
         }
 
-        public async Task<List<GetPatientDTO>> GetAllPatients()
+        public async Task<List<Patient>> GetAllPatients()
         {
             var patients = await _repository.GetAllPatients();
-            var patientsDTO = new List<GetPatientDTO>();
+            var patientsDTO = new List<Patient>();
 
             foreach (var patient in patients)
             {
@@ -67,7 +67,7 @@ namespace PatientApplication
                     measurements = JsonConvert.DeserializeObject<List<Measurement>>(result);
                 }
 
-                var patientDTO = new GetPatientDTO
+                var patientDTO = new Patient
                 {
                     SSN = patient.SSN,
                     Name = patient.Name,
@@ -84,7 +84,7 @@ namespace PatientApplication
 
         public async Task UpdatePatient(string ssn, PatientDTO patient)
         {
-            await _repository.UpdatePatient(ssn, _mapper.Map<Patient>(patient));
+            await _repository.UpdatePatient(ssn, _mapper.Map<PatientBE>(patient));
         }
 
         public async Task DeletePatient(string ssn)
@@ -96,7 +96,7 @@ namespace PatientApplication
             await _repository.DeletePatient(ssn);
         }
 
-        public async Task<GetPatientDTO> GetPatient(string ssn)
+        public async Task<Patient> GetPatient(string ssn)
         {
             var patient = await _repository.GetPatient(ssn);
             var request = new HttpRequestMessage(HttpMethod.Get, $"http://measurementservice:8080/Measurement/GetByPatientSSN/{ssn}");
@@ -113,7 +113,7 @@ namespace PatientApplication
                 Measurements = JsonConvert.DeserializeObject<List<Measurement>>(result);
             }
 
-            var patientRequest = new GetPatientDTO
+            var patientRequest = new Patient
             {
                 SSN = patient.SSN,
                 Name = patient.Name,

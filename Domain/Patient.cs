@@ -22,7 +22,6 @@ namespace Domain
         /// </summary>
         public string Email { get; set; }
 
-        [NotMapped]
         public ICollection<Measurement> Measurements { get; set; }
 
     }

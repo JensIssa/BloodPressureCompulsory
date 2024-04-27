@@ -12,7 +12,7 @@ namespace PatientApplication
         /// Gets all patients
         /// </summary>
         /// <returns></returns>
-        Task<List<GetPatientDTO>> GetAllPatients();
+        Task<List<Patient>> GetAllPatients();
         /// <summary>
         /// Rebuilds the database
         /// </summary>
@@ -24,7 +24,7 @@ namespace PatientApplication
         /// <param name="patient"></param>
         /// <returns></returns>
 
-        Task<Patient> AddPatient(PatientDTO patient);
+        Task<PatientBE> AddPatient(PatientDTO patient);
 
         /// <summary>
         /// Updates a patient in the database
@@ -48,7 +48,7 @@ namespace PatientApplication
         /// <param name="ssn">The patients social security number</param>
         /// <returns></returns>
 
-        Task<GetPatientDTO> GetPatient(string ssn);
+        Task<Patient> GetPatient(string ssn);
 
     }
 }

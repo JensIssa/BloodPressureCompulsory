@@ -18,10 +18,10 @@ namespace PatientInfrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Patient>().HasKey(p => p.SSN);
+            modelBuilder.Entity<PatientBE>().HasKey(p => p.SSN);
         }
 
-        public DbSet<Patient> Patients { get; set;}
+        public DbSet<PatientBE> Patients { get; set;}
 
     }
 }

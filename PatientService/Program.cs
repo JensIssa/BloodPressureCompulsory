@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 #region AutoMapper
 var mapper = new MapperConfiguration(config =>
 {
-    config.CreateMap<PatientDTO, Patient>();
+    config.CreateMap<PatientDTO, PatientBE>();
 }).CreateMapper();
 builder.Services.AddSingleton(mapper);
 #endregion

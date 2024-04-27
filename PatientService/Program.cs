@@ -7,6 +7,7 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -39,7 +40,7 @@ Log.Logger = new LoggerConfiguration()
 #region AutoMapper
 var mapper = new MapperConfiguration(config =>
 {
-    config.CreateMap<PatientDTO, Patient>();
+    config.CreateMap<PatientDTO, PatientBE>();
 }).CreateMapper();
 builder.Services.AddSingleton(mapper);
 #endregion
@@ -56,6 +57,9 @@ builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientService, PatientApplication.PatientService>();
 #endregion
 
+
+//builder.Services.AddHostedService<AddMeasurementToPatientHandler>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAnyOrigin", policy =>
@@ -65,6 +69,9 @@ builder.Services.AddCors(options =>
             .AllowAnyOrigin();
     });
 });
+
+builder.Services.AddHttpClient();
+
 
 var app = builder.Build();
 

@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.DTO;
 using PatientApplication.DTO;
 
 namespace PatientApplication
@@ -23,7 +24,7 @@ namespace PatientApplication
         /// <param name="patient"></param>
         /// <returns></returns>
 
-        Task<Patient> AddPatient(PatientDTO patient);
+        Task<PatientBE> AddPatient(PatientDTO patient);
 
         /// <summary>
         /// Updates a patient in the database

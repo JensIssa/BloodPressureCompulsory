@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PatientApplication;
 using PatientApplication.DTO;
@@ -133,6 +134,5 @@ namespace PatientService.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
     }
 }

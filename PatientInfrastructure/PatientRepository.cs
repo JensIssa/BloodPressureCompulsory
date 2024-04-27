@@ -1,8 +1,10 @@
 ﻿using Domain;
+using Domain.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,7 +19,7 @@ namespace PatientInfrastructure
             _dbContext = dbContext;
         }
 
-        public async Task<Patient> CreatePatient(Patient patient)
+        public async Task<PatientBE> CreatePatient(PatientBE patient)
         {
             _dbContext.Patients.Add(patient);
             await _dbContext.SaveChangesAsync();
@@ -35,14 +37,14 @@ namespace PatientInfrastructure
             }
         }
 
-        public Task<List<Patient>> GetAllPatients()
+        public Task<List<PatientBE>> GetAllPatients()
         {
             return _dbContext.Patients.ToListAsync();
         }
 
-        public async Task<Patient> GetPatient(string ssn)
+        public async Task<PatientBE> GetPatient(string ssn)
         {
-            var patient = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
+            var patient =  _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             return  patient;
         }
 
@@ -52,7 +54,7 @@ namespace PatientInfrastructure
             _dbContext.Database.EnsureCreated();
         }
 
-        public async Task UpdatePatient(string ssn, Patient patient)
+        public async Task UpdatePatient(string ssn, PatientBE patient)
         {
             var patientUpdate = _dbContext.Patients.FirstOrDefault(p => p.SSN.Equals(ssn));
             if (patient != null)
@@ -64,5 +66,6 @@ namespace PatientInfrastructure
                 await _dbContext.SaveChangesAsync();
             }
         }
+        }
     }
-}
+

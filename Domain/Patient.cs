@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Metrics;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.Metrics;
 
 namespace Domain
 {
@@ -21,9 +22,6 @@ namespace Domain
         /// </summary>
         public string Email { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public ICollection<Measurement> Measurements { get; set; }
 
     }

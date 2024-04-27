@@ -25,7 +25,7 @@ namespace MeasurementApplication.Interfaces
         /// </summary>
         /// <param name="patientSSN">The patient's social security number</param>
         /// <returns></returns>
-        Task<IEnumerable<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN);
+        Task<ICollection<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN);
 
     
         /// <summary>
@@ -56,6 +56,7 @@ namespace MeasurementApplication.Interfaces
         /// <param name="measurementId">The id of the measurement</param>
         /// <returns></returns>
         Task MarkMeasurementAsSeenAsync(int measurementId);
+
 
         /// <summary>
         /// Rebuilds the Measurement database

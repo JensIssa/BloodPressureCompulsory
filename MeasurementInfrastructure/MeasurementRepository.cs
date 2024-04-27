@@ -40,7 +40,7 @@ public class MeasurementRepo : IMeasurementRepository
         }
     }
 
-    public async Task<IEnumerable<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN)
+    public async Task<ICollection<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN)
     {
         return await _context.Measurements
           .Where(m => m.PatientSSN == patientSSN)

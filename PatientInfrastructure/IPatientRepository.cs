@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.DTO;
 using System.Runtime.CompilerServices;
 
 namespace PatientInfrastructure
@@ -6,17 +7,18 @@ namespace PatientInfrastructure
     public interface IPatientRepository
     {
 
-        Task<List<Patient>> GetAllPatients();
+        Task<List<PatientBE>> GetAllPatients();
 
-       Task<Patient> CreatePatient(Patient patient);
+       Task<PatientBE> CreatePatient(PatientBE patient);
 
-       Task UpdatePatient(string ssn, Patient patient);
+       Task UpdatePatient(string ssn, PatientBE patient);
 
        Task DeletePatient(string ssn);
 
-       Task<Patient> GetPatient(string ssn);
+       Task<PatientBE> GetPatient(string ssn);
 
-       void RebuildDb();
+
+        void RebuildDb();
 
     }
 

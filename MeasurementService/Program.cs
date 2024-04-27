@@ -10,6 +10,7 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -60,6 +61,7 @@ builder.Services.AddScoped<IMeasurementRepository, MeasurementRepo>();
 builder.Services.AddScoped<IMeasurementService, MeasurementCrud>();
 
 #endregion
+
 
 builder.Services.AddCors(options =>
 {

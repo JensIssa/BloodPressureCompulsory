@@ -3,6 +3,8 @@ name: .NET Build & Runs test. Builds and pushes docker images to Docker Hub.
 on:
   pull_request:
     branches: [ "master", "Development" ]
+  push:
+    branches: [ "test" ]
     
 jobs:
   build_and_push:

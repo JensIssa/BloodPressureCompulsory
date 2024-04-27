@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GetPatientModel} from "../model/get-patient.model";
+import {GetMeasurementModel} from "../model/get-measurement.model";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,9 @@ export class DoctorserviceService {
     return this.http.delete(url);
   }
 
-  
-
+  getMeasurementsForPatient(ssn: string): Observable<GetMeasurementModel[]> {
+    const url = `${this.measurementApiUrl}/GetByPatientSSN/${encodeURIComponent(ssn)}`;
+    return this.http.get<GetMeasurementModel[]>(url);
+  }
 }
 

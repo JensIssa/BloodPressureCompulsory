@@ -12,7 +12,9 @@ import {
   MatTableDataSource, MatTableModule,
 } from '@angular/material/table';
 import {CommonModule} from "@angular/common";
+import { MatDialog } from '@angular/material/dialog';
 import {MatIconModule} from "@angular/material/icon";
+import {MeasurementsDialogComponent} from "../measurements-dialog/measurements-dialog.component";
 
 @Component({
   selector: 'app-doctorcomponent',
@@ -33,13 +35,13 @@ import {MatIconModule} from "@angular/material/icon";
   styleUrl: './doctorcomponent.component.scss'
 })
 export class DoctorcomponentComponent implements OnInit {
-  displayedColumns: string[] = ['ssn', 'name', 'email', 'delete'];
+  displayedColumns: string[] = ['ssn', 'name', 'email', 'measurements', 'delete'];
   dataSource = new MatTableDataSource<GetPatientModel>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private myService: DoctorserviceService) { }
+  constructor(private myService: DoctorserviceService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.myService.getPatients().subscribe(patients => {
@@ -63,6 +65,14 @@ export class DoctorcomponentComponent implements OnInit {
         },
       });
     }
+  }
+
+  viewMeasurements(patient: GetPatientModel): void {
+    this.myService.getMeasurementsForPatient(patient.ssn).subscribe(measurements => {
+      this.dialog.open(MeasurementsDialogComponent, {
+        data: { measurements },
+      });
+    });
   }
 }
 

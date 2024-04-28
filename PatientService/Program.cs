@@ -6,6 +6,7 @@ using Domain;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
+using PatientService.FeatureToggle;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,6 +56,7 @@ builder.Services.AddLogging(logBuilder =>
 builder.Services.AddDbContext<RepositoryDBContext>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientService, PatientApplication.PatientService>();
+builder.Services.AddScoped<IFeatureToggle, FeatureToggle>();
 #endregion
 
 

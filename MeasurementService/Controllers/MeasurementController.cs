@@ -1,5 +1,6 @@
 ﻿using MeasurementApplication.DTO;
 using MeasurementApplication.Interfaces;
+using MeasurementService.FeatureToggle;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeasurementService.Controllers
@@ -10,11 +11,13 @@ namespace MeasurementService.Controllers
     {
         private readonly IMeasurementService _measurementService;
         private readonly ILogger<MeasurementController> _logger;
+        private readonly IFeatureToggle _featureToggle;
 
-        public MeasurementController(IMeasurementService measurementService, ILogger<MeasurementController> logger)
+        public MeasurementController(IMeasurementService measurementService, ILogger<MeasurementController> logger, IFeatureToggle featureToggle)
         {
             _measurementService = measurementService;
             _logger = logger;
+            _featureToggle = featureToggle;
         }
 
         [HttpGet]
@@ -28,6 +31,15 @@ namespace MeasurementService.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMeasurement([FromBody] CreateMeasurementDTO newMeasurement)
         {
+
+            var feature = await _featureToggle.IsFeatureEnabled("AddNewMeasurement");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Add a new Measurement feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
             _logger.LogInformation("Create the measurement with the values " + newMeasurement);
             try
             {
@@ -49,6 +61,15 @@ namespace MeasurementService.Controllers
             {
                 return BadRequest("Patient SSN is required.");
             }
+
+            var feature = await _featureToggle.IsFeatureEnabled("GetMeasurementsByPatientSSN");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Get Measurements By PatientSSN feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
 
             _logger.LogInformation($"Trying to retrieve the measurements for the patient with the given ssn {patientSSN}");
             try
@@ -77,6 +98,14 @@ namespace MeasurementService.Controllers
                 return BadRequest("Patient SSN is required");
             }
 
+            var feature = await _featureToggle.IsFeatureEnabled("DeleteMeasurementsByPatientSSN");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Delete Measurements By PatientSSN feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
             try
             {
                 await _measurementService.DeleteMeasurementsByPatientSSNAsync(patientSSN);
@@ -98,6 +127,14 @@ namespace MeasurementService.Controllers
             {
                 _logger.LogError("id cannot be less than 1");
                 return BadRequest("invalid id provided");
+            }
+
+            var feature = await _featureToggle.IsFeatureEnabled("DeleteMeasurement");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Delete Measurement feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
             }
 
             try
@@ -122,6 +159,14 @@ namespace MeasurementService.Controllers
         [Route("{measurementId}")]
         public async Task<IActionResult> UpdateMeasurement([FromRoute] int measurementId, [FromBody] UpdateMeasurementDTO updatedMeasurement)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("UpdateMeasurement");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Update Measurement feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
             _logger.LogInformation("trying to update the measurement with Id: {MeasurementId}", measurementId);
             try
             {
@@ -139,6 +184,14 @@ namespace MeasurementService.Controllers
         [Route("MarkAsSeen/{measurementId}")]
         public async Task<IActionResult> MarkMeasurementAsSeen([FromRoute] int measurementId)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("MarkMeasurementAsSeen");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Mark Measurement As Seen feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
             try
             {
                 await _measurementService.MarkMeasurementAsSeenAsync(measurementId);

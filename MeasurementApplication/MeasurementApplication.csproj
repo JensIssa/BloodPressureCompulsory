@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="13.0.1" />
-      <PackageReference Include="FeatureHub.SDK" Version="2.3.0" />
     </ItemGroup>
 
     <ItemGroup>

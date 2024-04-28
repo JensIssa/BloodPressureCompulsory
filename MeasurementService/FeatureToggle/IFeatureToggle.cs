@@ -1,4 +1,4 @@
-﻿namespace PatientService.FeatureToggle
+﻿namespace MeasurementService.FeatureToggle
 {
     public interface IFeatureToggle
     {

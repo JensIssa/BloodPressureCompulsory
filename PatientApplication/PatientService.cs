@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Domain;
-using FeatureHubSDK;
 using PatientApplication.DTO;
 using PatientInfrastructure;
-using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +15,7 @@ namespace PatientApplication
 
         private readonly IPatientRepository _repository;
         private readonly IMapper _mapper;
-        private IClientContext _fh;
-        private readonly EdgeFeatureHubConfig config;
+        
 
        
 

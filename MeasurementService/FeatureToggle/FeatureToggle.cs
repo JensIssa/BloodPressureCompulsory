@@ -1,12 +1,10 @@
 ﻿
 using FeatureHubSDK;
-using IO.FeatureHub.SSE.Model;
 
-namespace PatientService.FeatureToggle
+namespace MeasurementService.FeatureToggle
 {
     public class FeatureToggle : IFeatureToggle
     {
-
         EdgeFeatureHubConfig _config = null;
         private string _key = "38239dcf-4380-4e09-b999-93c9027ada96/qAXCqnqLo7GfcG72AUu1kM7XgWEHgxb4LkCuqeVU";
 
@@ -19,15 +17,9 @@ namespace PatientService.FeatureToggle
             _config = new EdgeFeatureHubConfig("http://featurehub:8085", _key);
         }
 
-
-        public async Task<bool> IsFeatureEnabled(string featureName)
+        public Task<bool> IsFeatureEnabled(string featureName)
         {
-            var fh = await _config.NewContext().Build();
-            if (fh[featureName].IsEnabled)
-            {
-                return true;
-            }
-            return false;
+            throw new NotImplementedException();
         }
     }
 }

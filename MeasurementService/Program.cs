@@ -6,6 +6,7 @@ using MeasurementApplication.Interfaces;
 using MeasurementInfrastructure;
 using MeasurementInfrastructure.Interfaces;
 using MeasurementRepository;
+using MeasurementService.FeatureToggle;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,7 @@ builder.Services.AddLogging(logBuilder =>
 builder.Services.AddDbContext<MeasurementDbContext>();
 builder.Services.AddScoped<IMeasurementRepository, MeasurementRepo>();
 builder.Services.AddScoped<IMeasurementService, MeasurementCrud>();
+builder.Services.AddScoped<IFeatureToggle, FeatureToggle>();
 
 #endregion
 

@@ -34,6 +34,15 @@ namespace PatientService.Controllers
         [Route("AddPatient")]
         public async Task<IActionResult>AddPatient([FromBody] PatientDTO patient) 
         {
+
+            var feature = await _featureToggle.IsFeatureEnabled("AddNewPatient");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Add a new patient feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
             _logger.LogInformation($"Create the patient with following values {patient}");
             try
             {
@@ -49,6 +58,15 @@ namespace PatientService.Controllers
         [HttpGet]        
         public async Task<IActionResult> GetAllPatients()
         {
+
+            var feature = await _featureToggle.IsFeatureEnabled("GetAllPatients");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Get all patients feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
             _logger.LogInformation("Get all patients");
 
             try
@@ -67,6 +85,15 @@ namespace PatientService.Controllers
         [Route("UpdatePatient/{ssn}")]
         public async Task<IActionResult> UpdatePatient([FromRoute] string ssn, [FromBody] PatientDTO patient)
         {
+
+            var feature = await _featureToggle.IsFeatureEnabled("UpdatePatient");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Update patient feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
             _logger.LogInformation($"Update the patient with following ssn {ssn}");
             try
             {
@@ -87,7 +114,7 @@ namespace PatientService.Controllers
 
 
 
-            var feature = await _featureToggle.IsFeatureEnabled();
+            var feature = await _featureToggle.IsFeatureEnabled("DeletePatient");
 
             if (!feature)
             {
@@ -113,6 +140,15 @@ namespace PatientService.Controllers
         [Route("GetPatient")]
         public async Task<IActionResult> GetPatient(string ssn)
         {
+
+            var feature = await _featureToggle.IsFeatureEnabled("GetPatient");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Get patient feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
+
             _logger.LogInformation($"Get the patient with following ssn {ssn}");
             try
             {

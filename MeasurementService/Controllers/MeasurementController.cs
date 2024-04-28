@@ -1,5 +1,6 @@
 ﻿using MeasurementApplication.DTO;
 using MeasurementApplication.Interfaces;
+using MeasurementService.FeatureToggle;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -11,10 +12,13 @@ namespace MeasurementService.Controllers
     {
         private readonly IMeasurementService _measurementService;
         private readonly ILogger<MeasurementController> _logger;
+        private readonly IFeatureToggle _featureToggle;
 
-        public MeasurementController(IMeasurementService measurementService, ILogger<MeasurementController> logger)
+        public MeasurementController(IMeasurementService measurementService, ILogger<MeasurementController> logger, IFeatureToggle featureToggle)
         {
             _measurementService = measurementService;
+            _logger = logger;
+            _featureToggle = featureToggle;
         }
 
         [HttpGet]
@@ -28,6 +32,13 @@ namespace MeasurementService.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMeasurement([FromBody] CreateMeasurementDTO newMeasurement)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("AddNewMeasurement");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Add a new Measurement feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("MeasurementService-API");
             using (var span = tracer.StartActiveSpan("AddMeasurement"))
             {
@@ -50,6 +61,13 @@ namespace MeasurementService.Controllers
         [Route("GetByPatientSSN/{patientSSN}")]
         public async Task<IActionResult> GetMeasurementsByPatientSSN(string patientSSN)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("GetMeasurementsByPatientSSN");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Get Measurements By PatientSSN feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("MeasurementService-API");
             using (var span = tracer.StartActiveSpan("GetMeasurementByPatientSSN"))
             {
@@ -83,6 +101,13 @@ namespace MeasurementService.Controllers
         [Route("DeleteByPatientSSN/{patientSSN}")]
         public async Task<IActionResult> DeleteMeasurementsByPatientSSN(string patientSSN)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("DeleteMeasurementsByPatientSSN");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Delete Measurements By PatientSSN feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("MeasurementService-API");
             using (var span = tracer.StartActiveSpan("DeleteMeasurementsByPatientSSN"))
             {
@@ -111,6 +136,13 @@ namespace MeasurementService.Controllers
         [Route("{measurementId}")]
         public async Task<IActionResult> DeleteMeasurement(int measurementId)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("DeleteMeasurement");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Delete Measurement feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("MeasurementService-API");
             using (var span = tracer.StartActiveSpan("DeleteMeasurement"))
             {
@@ -145,6 +177,13 @@ namespace MeasurementService.Controllers
         [Route("{measurementId}")]
         public async Task<IActionResult> UpdateMeasurement([FromRoute] int measurementId, [FromBody] UpdateMeasurementDTO updatedMeasurement)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("UpdateMeasurement");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Update Measurement feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("MeasurementService-API");
             using (var span = tracer.StartActiveSpan("UpdateMeasurement"))
             {
@@ -169,6 +208,13 @@ namespace MeasurementService.Controllers
         [Route("MarkAsSeen/{measurementId}")]
         public async Task<IActionResult> MarkMeasurementAsSeen([FromRoute] int measurementId)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("MarkMeasurementAsSeen");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Mark Measurement As Seen feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("MeasurementService-API");
             using (var span = tracer.StartActiveSpan("MarkMeasurementAsSeen"))
             {

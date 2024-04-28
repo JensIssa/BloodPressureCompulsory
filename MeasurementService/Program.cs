@@ -6,6 +6,7 @@ using MeasurementApplication.Interfaces;
 using MeasurementInfrastructure;
 using MeasurementInfrastructure.Interfaces;
 using MeasurementRepository;
+using MeasurementService.FeatureToggle;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
@@ -59,7 +60,7 @@ builder.Services.AddLogging(logBuilder =>
 builder.Services.AddDbContext<MeasurementDbContext>();
 builder.Services.AddScoped<IMeasurementRepository, MeasurementRepo>();
 builder.Services.AddScoped<IMeasurementService, MeasurementCrud>();
-
+builder.Services.AddScoped<IFeatureToggle, FeatureToggle>();
 #endregion
 
 

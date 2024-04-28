@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PatientApplication;
 using PatientApplication.DTO;
+using PatientService.FeatureToggle;
 using Serilog;
 
 namespace PatientService.Controllers
@@ -14,9 +15,13 @@ namespace PatientService.Controllers
         IPatientService _patientService;
 
         private readonly ILogger<PatientController> _logger;
-        public PatientController(IPatientService patientService, ILogger<PatientController> logger)
+        private readonly IFeatureToggle _featureToggle;
+
+        public PatientController(IPatientService patientService, ILogger<PatientController> logger, IFeatureToggle featureToggle)
         {
             _patientService = patientService;
+            _logger = logger;
+            _featureToggle = featureToggle;
         }
 
         [HttpGet]
@@ -31,6 +36,13 @@ namespace PatientService.Controllers
         [Route("AddPatient")]
         public async Task<IActionResult> AddPatient([FromBody] PatientDTO patient)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("AddNewPatient");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Add a new patient feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
             using (var span = tracer.StartActiveSpan("AddPatient"))
             {
@@ -53,6 +65,13 @@ namespace PatientService.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPatients()
         {
+            var feature = await _featureToggle.IsFeatureEnabled("GetAllPatients");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Get all patients feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
             using (var span = tracer.StartActiveSpan("GetAllPatients"))
             {
@@ -75,6 +94,13 @@ namespace PatientService.Controllers
         [Route("UpdatePatient/{ssn}")]
         public async Task<IActionResult> UpdatePatient([FromRoute] string ssn, [FromBody] PatientDTO patient)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("UpdatePatient");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Update patient feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
             using (var span = tracer.StartActiveSpan("UpdatePatient"))
 
@@ -98,6 +124,13 @@ namespace PatientService.Controllers
         [Route("DeletePatient")]
         public async Task<IActionResult> DeletePatient(string ssn)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("DeletePatient");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Delete patient feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
             using (var span = tracer.StartActiveSpan("DeletePatient"))
             {
@@ -119,6 +152,13 @@ namespace PatientService.Controllers
         [Route("GetPatient")]
         public async Task<IActionResult> GetPatient(string ssn)
         {
+            var feature = await _featureToggle.IsFeatureEnabled("GetPatient");
+
+            if (!feature)
+            {
+                _logger.LogInformation("Get patient feature is disabled.");
+                return BadRequest("This feature is currently disabled.");
+            }
             var tracer = OpenTelemetry.Trace.TracerProvider.Default.GetTracer("PatientService-API");
             using (var span = tracer.StartActiveSpan("GetPatient"))
 

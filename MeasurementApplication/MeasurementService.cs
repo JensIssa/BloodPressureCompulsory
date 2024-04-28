@@ -4,6 +4,7 @@ using MeasurementApplication.DTO;
 using MeasurementApplication.Interfaces;
 using MeasurementInfrastructure.Interfaces;
 
+
 namespace MeasurementApplication;
 
 public class MeasurementCrud : IMeasurementService
@@ -24,6 +25,7 @@ public class MeasurementCrud : IMeasurementService
         measurement.IsSeen = false; 
 
         var addedMeasurement = await _measurementRepository.AddMeasurementAsync(measurement);
+
         return addedMeasurement; 
     }
 
@@ -42,7 +44,7 @@ public class MeasurementCrud : IMeasurementService
         await _measurementRepository.DeleteMeasurementsByPatientSSNAsync(patientSSN);
     }
 
-    public async Task<IEnumerable<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN)
+    public async Task<ICollection<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN)
     {
         return await _measurementRepository.GetMeasurementsByPatientSSNAsync(patientSSN);
     }
@@ -56,6 +58,8 @@ public class MeasurementCrud : IMeasurementService
 
         await _measurementRepository.MarkMeasurementAsSeenAsync(measurementId);
     }
+
+
 
     public void Rebuild()
     {

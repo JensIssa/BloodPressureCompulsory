@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasurementInfrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasurementService", "MeasurementService\MeasurementService.csproj", "{B2ABB8BE-B229-4716-8BEC-A52528B75583}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{533D7FE0-4F6F-4FDD-8080-3620FD223896}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{55EE99D2-021C-4DC6-9855-999E1CE6FD31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,10 @@ Global
 		{B2ABB8BE-B229-4716-8BEC-A52528B75583}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2ABB8BE-B229-4716-8BEC-A52528B75583}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2ABB8BE-B229-4716-8BEC-A52528B75583}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55EE99D2-021C-4DC6-9855-999E1CE6FD31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EE99D2-021C-4DC6-9855-999E1CE6FD31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EE99D2-021C-4DC6-9855-999E1CE6FD31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EE99D2-021C-4DC6-9855-999E1CE6FD31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +74,7 @@ Global
 		{77C09BA5-74AC-45DF-84CB-00A9EE42AAEF} = {2846AFD2-87DC-41B4-9416-0009CCF1AB8A}
 		{5C8FFF0D-C91E-43AA-9421-2CA130F98BC0} = {2846AFD2-87DC-41B4-9416-0009CCF1AB8A}
 		{B2ABB8BE-B229-4716-8BEC-A52528B75583} = {2846AFD2-87DC-41B4-9416-0009CCF1AB8A}
+		{55EE99D2-021C-4DC6-9855-999E1CE6FD31} = {533D7FE0-4F6F-4FDD-8080-3620FD223896}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A943E78-F28D-4141-9DB0-AB7E73C04990}

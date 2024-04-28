@@ -18,10 +18,22 @@ namespace PatientInfrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Patient>().HasKey(p => p.SSN);
+            modelBuilder.Entity<PatientBE>().HasKey(p => p.SSN);
+
+            modelBuilder.Entity<PatientBE>().HasData(
+                new PatientBE()
+                    { SSN = "123", Name = "Olaf", Email = "Olaf@mail.com" },
+                new PatientBE()
+                    { SSN = "1234", Name = "Jens", Email = "Jens@mail.com" },
+                new PatientBE()
+                    { SSN = "12345", Name = "Benny", Email = "Benny@mail.com" },
+                new PatientBE()
+                    { SSN = "123456", Name = "Lars", Email = "Lars@mail.com" },
+                new PatientBE()
+                    { SSN = "1234567", Name = "Vladimir", Email = "Vladimir@mail.com",  });
         }
 
-        public DbSet<Patient> Patients { get; set;}
+        public DbSet<PatientBE> Patients { get; set;}
 
     }
 }

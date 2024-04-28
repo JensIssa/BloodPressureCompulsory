@@ -29,7 +29,7 @@ namespace MeasurementInfrastructure.Interfaces
         /// </summary>
         /// <param name="patientSSN">The social security number of the patient</param>
         /// <returns></returns>
-        Task<IEnumerable<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN);
+        Task<ICollection<Measurement>> GetMeasurementsByPatientSSNAsync(string patientSSN);
 
         /// <summary>
         /// Deletes all the measurements associated with the patientSSN

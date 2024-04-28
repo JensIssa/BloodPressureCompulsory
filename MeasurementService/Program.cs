@@ -75,6 +75,10 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+using var scope = app.Services.CreateScope();
+var measurementService = scope.ServiceProvider.GetRequiredService<IMeasurementService>();
+measurementService.Rebuild();
+
 app.UseCors("AllowAnyOrigin");
 
 // Configure the HTTP request pipeline.

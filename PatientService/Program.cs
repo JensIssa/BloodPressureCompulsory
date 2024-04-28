@@ -75,6 +75,10 @@ builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
+using var scope = app.Services.CreateScope();
+var patientService = scope.ServiceProvider.GetRequiredService<IPatientService>();
+patientService.RebuildDb();
+
 app.UseCors("AllowAnyOrigin");
 
 // Configure the HTTP request pipeline.

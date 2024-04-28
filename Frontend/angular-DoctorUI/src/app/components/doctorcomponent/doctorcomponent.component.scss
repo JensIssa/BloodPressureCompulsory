@@ -1,45 +1,40 @@
 .table-toolbar {
   display: flex;
   justify-content: flex-end;
-  align-items: center; // Center alignment vertically
+  align-items: center;
   padding: 20px;
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #e0e0e0;
+  background-color: #f8f8f8;
+  border-bottom: 2px solid #dedede;
 }
 
-#customMatTable {
+.mat-mdc-table {
   width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
 }
 
 .mat-mdc-header-cell {
-  background-color: black;
-  color: #333;
+  color: black;
+  background-color: #333;
   font-size: 16px;
   font-weight: bold;
 }
 
 .mat-cell {
   padding: 16px;
-  background-color: #f0f0f0;
   line-height: 24px;
   font-size: 14px;
+  border-bottom: 1px solid #eeeeee;
 }
+
 .mat-mdc-row {
   padding: 0;
 
-}
-tr.mat-row:nth-child(odd) {
-  background-color: #f9f9f9; // Light zebra striping
-}
-
-tr.mat-row:hover {
-  background-color: #e0f7fa; // Light blue on hover
 }
 
 
 mat-icon-button  {
   min-width: 44px;
-  margin: 0 8px; // Spacing around icon buttons
+  margin: 0 8px;
 }
 
 mat-paginator {

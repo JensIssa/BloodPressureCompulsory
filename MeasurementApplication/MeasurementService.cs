@@ -68,10 +68,6 @@ public class MeasurementCrud : IMeasurementService
 
     public async Task UpdateMeasurementAsync(int measurementId, UpdateMeasurementDTO measurement)
     {
-        if (measurementId != measurement.Id)
-        {
-            throw new ArgumentException("The ids must match");
-        }
 
         if (measurementId < 1)
         {

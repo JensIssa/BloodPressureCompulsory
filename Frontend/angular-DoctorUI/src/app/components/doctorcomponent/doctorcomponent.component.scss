@@ -1,0 +1,66 @@
+.table-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-bottom: 2px solid #dedede;
+}
+
+.mat-mdc-table {
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
+}
+
+.mat-mdc-header-cell {
+  color: black;
+  background-color: #333;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.mat-cell {
+  padding: 16px;
+  line-height: 24px;
+  font-size: 14px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.mat-mdc-row {
+  padding: 0;
+
+}
+
+
+mat-icon-button  {
+  min-width: 44px;
+  margin: 0 8px;
+}
+
+mat-paginator {
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+}
+
+button {
+  color: #fff;
+  background-color: #00796b;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+  padding: 10px 25px;
+  border-radius: 4px;
+  margin-right: 10px; // Right margin for separation
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+
+  &:hover {
+    background-color: #005a4f;
+    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px); // Lift effect on hover
+  }
+
+  &:active {
+    background-color: #004d43;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px); // Pressed effect
+  }
+}

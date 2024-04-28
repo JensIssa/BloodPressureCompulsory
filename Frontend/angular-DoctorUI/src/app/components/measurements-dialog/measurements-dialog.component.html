@@ -1,0 +1,56 @@
+<!-- measurements-dialog.component.html -->
+<h1 mat-dialog-title>Measurements for Patient</h1>
+<div mat-dialog-content>
+  <table mat-table [dataSource]="data.measurements">
+
+    <ng-container matColumnDef="checkbox">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let measurement">
+        <mat-checkbox [checked]="measurement.isSeen" (change)="markAsSeen(measurement)"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let measurement">{{ measurement.date | date }}</td>
+    </ng-container>
+
+    <!-- Systolic Column -->
+    <ng-container matColumnDef="systolic">
+      <th mat-header-cell *matHeaderCellDef>Systolic</th>
+      <td mat-cell *matCellDef="let measurement">
+        <input type="number" [(ngModel)]="measurement.systolic">
+      </td>
+    </ng-container>
+
+    <!-- Diastolic Column -->
+    <ng-container matColumnDef="diastolic">
+      <th mat-header-cell *matHeaderCellDef>Diastolic</th>
+      <td mat-cell *matCellDef="let measurement">
+        <input type="number" [(ngModel)]="measurement.diastolic">
+      </td>
+    </ng-container>
+
+    <!-- IsSeen Column -->
+    <ng-container matColumnDef="isSeen">
+      <th mat-header-cell *matHeaderCellDef>Seen</th>
+      <td mat-cell *matCellDef="let measurement">{{ measurement.isSeen ? 'Yes' : 'No' }}</td>
+    </ng-container>
+
+    <!-- Update Column -->
+    <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let measurement">
+        <button mat-button (click)="updateMeasurements(measurement)">Update</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+
+</div>

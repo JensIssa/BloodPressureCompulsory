@@ -69,16 +69,19 @@ public class MeasurementRepo : IMeasurementRepository
 
     public async Task UpdateMeasurementAsync(int measurementId, Measurement updatedMeasurement)
     {
-        var measurementToUpdate = await _context.Measurements.FirstOrDefaultAsync(m => m.Id == updatedMeasurement.Id);
+        var measurementToUpdate = await _context.Measurements.FirstOrDefaultAsync(m => m.Id == measurementId);
 
-        if (measurementId != updatedMeasurement.Id)
+        if (measurementToUpdate == null)
         {
-            throw new ArgumentException("ids does not match");
+            throw new ArgumentException("Measurement not found");
         }
 
         measurementToUpdate.Diastolic = updatedMeasurement.Diastolic;
         measurementToUpdate.Systolic = updatedMeasurement.Systolic;
+        measurementToUpdate.Date = DateTime.Now;
+
         _context.Measurements.Update(measurementToUpdate);
         await _context.SaveChangesAsync();
     }
+
 }

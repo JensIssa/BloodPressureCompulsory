@@ -63,21 +63,18 @@ export class MeasurementsDialogComponent {
   markAsSeen(measurement: GetMeasurementModel): void {
     measurement.isSeen = !measurement.isSeen;
     this.myService.markAsSeen(measurement.id).subscribe(() => {
-      // Handle successful response from backend
     });
   }
   updateMeasurements(measurement: GetMeasurementModel): void {
     const updatedDetails = new UpdateMeasurementModel(measurement.systolic, measurement.diastolic);
     this.myService.updateMeasurement(measurement.id, updatedDetails).subscribe({
       next: () => {
-        // Show a snackbar on successful update
         this.snackBar.open('Update successful', 'Close', {
-          duration: 3000,  // Duration in milliseconds after which the snackbar will disappear
+          duration: 3000,
         });
         console.log('Update successful');
       },
       error: (error) => {
-        // Handle error
         this.snackBar.open('Error updating measurement: ' + error.message, 'Close', {
           duration: 3000,
         });

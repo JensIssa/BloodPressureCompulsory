@@ -25,12 +25,12 @@ import {
   imports: [
     MatPaginator,
     MatSort,
-    MatTable, // Add this
-    MatHeaderRowDef, // Add this
-    MatRowDef, // Add this
-    MatHeaderCellDef, // Add this,
+    MatTable,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatHeaderCellDef,
     MatTableModule,
-    MatCellDef, // Add this,
+    MatCellDef,
     CommonModule,
     MatIconModule
   ],
@@ -57,7 +57,6 @@ export class DoctorcomponentComponent implements OnInit {
     if (confirm(`Are you sure you want to delete patient "${patient.name}"?`)) {
       this.myService.deletePatient(patient.ssn).subscribe({
         next: () => {
-          // Refresh the table data after successful deletion
           this.myService.getPatients().subscribe(patients => {
             this.dataSource.data = patients;
           });
@@ -72,11 +71,16 @@ export class DoctorcomponentComponent implements OnInit {
 
   viewMeasurements(patient: GetPatientModel): void {
     this.myService.getMeasurementsForPatient(patient.ssn).subscribe(measurements => {
-      this.dialog.open(MeasurementsDialogComponent, {
-        data: { measurements },
-      });
+      if (measurements.length === 0) {
+        alert("No measurements currently for this patient");
+      } else {
+        this.dialog.open(MeasurementsDialogComponent, {
+          data: { measurements },
+        });
+      }
     });
   }
+
 
   openAddPatientDialog(): void {
     const dialogRef = this.dialog.open(PatientFormDialogComponentComponent);

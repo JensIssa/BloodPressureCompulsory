@@ -5,5 +5,6 @@ export class GetMeasurementModel {
     public diastolic: number,
     public isSeen: boolean,
     public date: string,
+    public id: number
   ) {}
 }

@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Add New Patient</h1>
+<div mat-dialog-content>
+  <form [formGroup]="patientForm">
+    <mat-form-field>
+      <mat-label>SSN</mat-label>
+      <input matInput formControlName="ssn">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="!patientForm.valid" (click)="addPatient()">Add</button>
+</div>

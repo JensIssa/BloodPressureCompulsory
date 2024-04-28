@@ -15,6 +15,9 @@ import {CommonModule} from "@angular/common";
 import { MatDialog } from '@angular/material/dialog';
 import {MatIconModule} from "@angular/material/icon";
 import {MeasurementsDialogComponent} from "../measurements-dialog/measurements-dialog.component";
+import {
+  PatientFormDialogComponentComponent
+} from "../patient-form-dialog-component/patient-form-dialog-component.component";
 
 @Component({
   selector: 'app-doctorcomponent',
@@ -71,6 +74,17 @@ export class DoctorcomponentComponent implements OnInit {
     this.myService.getMeasurementsForPatient(patient.ssn).subscribe(measurements => {
       this.dialog.open(MeasurementsDialogComponent, {
         data: { measurements },
+      });
+    });
+  }
+
+  openAddPatientDialog(): void {
+    const dialogRef = this.dialog.open(PatientFormDialogComponentComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Refresh the list of patients
+      this.myService.getPatients().subscribe(patients => {
+        this.dataSource.data = patients;
       });
     });
   }

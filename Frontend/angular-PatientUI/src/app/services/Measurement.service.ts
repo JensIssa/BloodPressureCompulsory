@@ -15,4 +15,8 @@ export class MeasurementService {
     return this.http.post<CreateMeasurementModel>(this.measurementApiUrl, measurement);
   }
 
+  isCountryAllowed(country: string): Observable<{ country: string, isAllowed: boolean }> {
+    const url = `${this.measurementApiUrl}/IsCountryAllowed?country=${encodeURIComponent(country)}`;
+    return this.http.get<{ country: string, isAllowed: boolean }>(url);
+  }
 }

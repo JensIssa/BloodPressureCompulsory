@@ -25,7 +25,7 @@ services:
       MSSQL_SA_PASSWORD: "SuperSecret7!"
       ACCEPT_EULA: "Y"
     ports:
-      - "1434:1433"
+      - "1434:1434"
     volumes:
       - mssql_data_patient_db:/var/opt/mssql
 

@@ -1,3 +1,16 @@
+<div class="select-country">
+  <label for="countrySelect">Select Your Country:</label>
+  <select id="countrySelect" [(ngModel)]="country" name="country" class="form-control" (change)="checkCountryAllowed(country)">
+    <option value="">--Select a Country--</option>
+    <option value="Denmark">Denmark</option>
+    <option value="United States">United States</option>
+    <option value="United Kingdom">United Kingdom</option>
+    <option value="Canada">Canada</option>
+    <!-- Add other countries as needed -->
+  </select>
+</div>
+
+
 <div *ngIf="isVisible; else notFromDenmark" class="dashboard-container">
   <div class="measurement-container">
     <h2>Add Measurement</h2>

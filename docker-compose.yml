@@ -39,6 +39,7 @@ services:
     depends_on:
       - Measurement-db
       - featurehub
+    restart: on-failure
 
   patientservice:
     image: jensissa/patientservice:latest
@@ -50,6 +51,7 @@ services:
     depends_on:
       - Patient-db
       - featurehub
+    restart: on-failure
 
   doctoruifrontend:
     image: jensissa/doctoruifrontend:latest

@@ -1,6 +1,5 @@
 <div class="mat-elevation-z8">
   <!-- Main content container controlled by ngIf directive -->
-  <ng-container *ngIf="isVisible; else notAllowed">
     <!-- Toolbar with Add Patient Button -->
     <div class="table-toolbar">
       <button mat-raised-button color="primary" (click)="openAddPatientDialog()">Add New Patient</button>
@@ -58,12 +57,4 @@
 
     <!-- Paginator -->
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-  </ng-container>
-
-  <!-- Alternative content for users not from Denmark -->
-  <ng-template #notAllowed>
-    <div class="denied-access-message">
-      Sorry, users outside of Denmark can't access this service.
-    </div>
-  </ng-template>
 </div>

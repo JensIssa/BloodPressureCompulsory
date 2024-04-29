@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {GetPatientModel} from "../model/get-patient.model";
 import {GetMeasurementModel} from "../model/get-measurement.model";
 import {FormControl, ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

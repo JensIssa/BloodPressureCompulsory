@@ -79,7 +79,7 @@ var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
 var patientService = scope.ServiceProvider.GetRequiredService<IPatientService>();
-patientService.RebuildDb();
+//patientService.RebuildDb();
 
 app.UseCors("AllowAnyOrigin");
 

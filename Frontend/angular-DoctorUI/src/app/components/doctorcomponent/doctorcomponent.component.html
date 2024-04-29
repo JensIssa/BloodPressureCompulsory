@@ -1,22 +1,32 @@
 <div class="mat-elevation-z8">
-  <!-- Toolbar with Add Patient Button -->
-  <div class="table-toolbar">
-    <button mat-raised-button color="primary" (click)="openAddPatientDialog()">Add New Patient</button>
-  </div>
+  <!-- Main content container controlled by ngIf directive -->
+  <ng-container *ngIf="isVisible; else notAllowed">
+    <!-- Toolbar with Add Patient Button -->
+    <div class="table-toolbar">
+      <button mat-raised-button color="primary" (click)="openAddPatientDialog()">Add New Patient</button>
+    </div>
 
-    <table id="customMatTable" mat-table [dataSource]="dataSource" >
+    <!-- Data table for displaying patient information -->
+    <table id="customMatTable" mat-table [dataSource]="dataSource">
+      <!-- Column definition for SSN -->
       <ng-container matColumnDef="ssn">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>SSN</th>
         <td mat-cell *matCellDef="let patient">{{ patient.ssn }}</td>
       </ng-container>
+
+      <!-- Column definition for Name -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
         <td mat-cell *matCellDef="let patient">{{ patient.name }}</td>
       </ng-container>
+
+      <!-- Column definition for Email -->
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
         <td mat-cell *matCellDef="let patient">{{ patient.email }}</td>
       </ng-container>
+
+      <!-- Column definition for Measurements viewing -->
       <ng-container matColumnDef="measurements">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let patient">
@@ -25,6 +35,8 @@
           </button>
         </td>
       </ng-container>
+
+      <!-- Column definition for Deleting Patients -->
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let patient">
@@ -34,12 +46,24 @@
         </td>
       </ng-container>
 
+      <!-- Table Header and Row Definitions -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Placeholder text when no data is available -->
       <tr class="mat-row" *ngIf="dataSource.data.length === 0">
         <td class="mat-cell" colspan="5">No data available</td>
       </tr>
     </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <!-- Paginator -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </ng-container>
+
+  <!-- Alternative content for users not from Denmark -->
+  <ng-template #notAllowed>
+    <div class="denied-access-message">
+      Sorry, users outside of Denmark can't access this service.
+    </div>
+  </ng-template>
 </div>

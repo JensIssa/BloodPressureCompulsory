@@ -18,6 +18,7 @@ import {MeasurementsDialogComponent} from "../measurements-dialog/measurements-d
 import {
   PatientFormDialogComponentComponent
 } from "../patient-form-dialog-component/patient-form-dialog-component.component";
+import {GeoLocationService} from "../../services/geolocation.service";
 
 @Component({
   selector: 'app-doctorcomponent',
@@ -40,13 +41,26 @@ import {
 export class DoctorcomponentComponent implements OnInit {
   displayedColumns: string[] = ['ssn', 'name', 'email', 'measurements', 'delete'];
   dataSource = new MatTableDataSource<GetPatientModel>();
-
+  isVisible = false;
+  locationChecked = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private myService: DoctorserviceService, private dialog: MatDialog) { }
+  constructor(private myService: DoctorserviceService, private dialog: MatDialog, private geoLocationService: GeoLocationService ) { }
 
   ngOnInit(): void {
+    this.geoLocationService.getUserCountry().subscribe(country => {
+      this.locationChecked = true;  // Set true when the check is complete
+      if (country === 'Denmark') {
+        this.isVisible = true;
+        this.loadPatients();
+      }
+    });
+  }
+
+
+
+  loadPatients() {
     this.myService.getPatients().subscribe(patients => {
       this.dataSource.data = patients;
       this.dataSource.paginator = this.paginator;

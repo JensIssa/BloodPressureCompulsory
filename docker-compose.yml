@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  featurehub:
+    image: featurehub/party-server:latest
+    restart: always
+    volumes:
+      - featurehub-h2-data:/db
+    ports:
+      - 8085:8085
+  
+  Measurement-db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      MSSQL_SA_PASSWORD: "SuperSecret7!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data_measurement_db:/var/opt/mssql
+
+  Patient-db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      MSSQL_SA_PASSWORD: "SuperSecret7!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1434:1433"
+    volumes:
+      - mssql_data_patient_db:/var/opt/mssql
+
+  measurementservice:
+    image: jensissa/measurementservice:latest
+    build:
+      context: .
+      dockerfile: ./MeasurementService/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - Measurement-db
+      - featurehub
+
+  patientservice:
+    image: jensissa/patientservice:latest
+    build:
+      context: .
+      dockerfile: ./PatientService/Dockerfile
+    ports:
+      - "8090:8080"
+    depends_on:
+      - Patient-db
+      - featurehub
+
+  doctoruifrontend:
+    image: jensissa/doctoruifrontend:latest
+    ports:
+      - "8070:80"
+    build:
+      context: .
+      dockerfile: ./Frontend/angular-DoctorUI/Dockerfile
+    volumes:
+      - ./Frontend/angular-DoctorUI/src:/app/src:delegated
+    depends_on:
+      - measurementservice
+
+  patientuifrontend:
+    image: jensissa/patientuifrontend:latest
+    ports:
+      - "8060:80"
+    build:
+      context: .
+      dockerfile: ./Frontend/angular-PatientUI/Dockerfile
+    volumes:
+      - ./Frontend/angular-PatientUI/src:/app/src:delegated
+    depends_on:
+      - patientservice
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
+    restart: unless-stopped
+
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - "5342:80"
+      - "5341:5341"
+    volumes:
+      - /path/to/seq-data:/data
+    environment:
+      ACCEPT_EULA: "Y"
+
+volumes:
+  mssql_data_patient_db:
+  mssql_data_measurement_db:
+  featurehub-h2-data:

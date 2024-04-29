@@ -1,0 +1,10 @@
+@MeasurementService_HostAddress = https://localhost:7273
+
+GET {{MeasurementService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{MeasurementService_HostAddress}}/measurement/Rebuild
+
+###

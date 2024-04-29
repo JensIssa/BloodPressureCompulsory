@@ -1,0 +1,26 @@
+<div *ngIf="isVisible; else notFromDenmark" class="dashboard-container">
+  <div class="measurement-container">
+    <h2>Add Measurement</h2>
+    <form (ngSubmit)="addMeasurement()">
+      <div class="form-group">
+        <label for="ssnInput">SSN (Your Social Security Number):</label>
+        <input type="text" id="ssnInput" [(ngModel)]="measurement.patientSSN" name="ssn" class="form-control" placeholder="Enter SSN" required>
+      </div>
+      <div class="form-group">
+        <label for="systolicInput">Systolic:</label>
+        <input type="number" id="systolicInput" [(ngModel)]="measurement.systolic" name="systolic" class="form-control" placeholder="Enter Systolic Value" min="0" required>
+      </div>
+      <div class="form-group">
+        <label for="diastolicInput">Diastolic:</label>
+        <input type="number" id="diastolicInput" [(ngModel)]="measurement.diastolic" name="diastolic" class="form-control" placeholder="Enter Diastolic Value" min="0" required>
+      </div>
+      <button type="submit" class="btn btn-success">Submit Measurement</button>
+    </form>
+  </div>
+</div>
+
+<ng-template #notFromDenmark>
+  <div class="denied-access-message">
+    Sorry, users outside of Denmark can't access this service.
+  </div>
+</ng-template>

@@ -34,7 +34,7 @@ namespace MeasurementService.FeatureToggle
             if (couldParse)
             {
                 var fh = await _config.NewContext().Country(SACM).Build();
-                if (fh["DanishAccess"].IsEnabled)
+                if (fh["OnlyDK"].IsEnabled)
                 {
                     return true;
                 }

@@ -57,6 +57,26 @@ namespace MeasurementService.Controllers
             }
         }
 
+
+        [HttpGet("IsCountryAllowed")]
+        public async Task<IActionResult> IsCountryAllowed([FromQuery] string country)
+        {
+            if (string.IsNullOrWhiteSpace(country))
+            {
+                return BadRequest("Country name is required.");
+            }
+
+            try
+            {
+                var isAllowed = await _featureToggle.IsCountryAllowed(country);
+                return Ok(new { Country = country, IsAllowed = isAllowed });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+
         [HttpGet]
         [Route("GetByPatientSSN/{patientSSN}")]
         public async Task<IActionResult> GetMeasurementsByPatientSSN(string patientSSN)

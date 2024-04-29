@@ -12,24 +12,30 @@ import {CommonModule} from "@angular/common";
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
-  measurement: CreateMeasurementModel = new CreateMeasurementModel(0,0, '');
+export class DashboardComponent implements OnInit {
+  measurement: CreateMeasurementModel = new CreateMeasurementModel(0, 0, '');
   isVisible = false;
+  country: string = '';  // User-selected country
 
-
-  constructor(private measurementService: MeasurementService, private geoLocationService: GeoLocationService) {}
+  constructor(private measurementService: MeasurementService) {}
 
   ngOnInit(): void {
-    this.geoLocationService.getUserCountry().subscribe(
-      country => {
-        if (country === 'Denmark') {
-          this.isVisible = true;
-        }
+  }
+
+  checkCountryAllowed(selectedCountry: string): void {
+    if (!selectedCountry) {
+      this.isVisible = false;
+      return; // Do not check if no country is selected
+    }
+    this.measurementService.isCountryAllowed(selectedCountry).subscribe({
+      next: ({ isAllowed }) => {
+        this.isVisible = isAllowed;
       },
-      error => {
-        console.error('Error retrieving user country:', error);
+      error: (error) => {
+        console.error('Error checking if country is allowed:', error);
+        this.isVisible = false; // Default to false on error
       }
-    );
+    });
   }
 
   addMeasurement(): void {

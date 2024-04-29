@@ -14,7 +14,7 @@ namespace MeasurementInfrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=Measurement-db;Database=Measurement;User Id=sa;Password=SuperSecret7!;Trusted_Connection=False;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=Measurement-db;Database=Measurement;User Id=sa;Password=SuperSecret7!;TrustServerCertificate=True;");   
         }
 
 

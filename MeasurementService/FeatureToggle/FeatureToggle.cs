@@ -1,11 +1,12 @@
 ﻿using FeatureHubSDK;
+using IO.FeatureHub.SSE.Model;
 
 namespace MeasurementService.FeatureToggle
 {
     public class FeatureToggle : IFeatureToggle
     {
         EdgeFeatureHubConfig _config = null;
-        private string _key = "38239dcf-4380-4e09-b999-93c9027ada96/qAXCqnqLo7GfcG72AUu1kM7XgWEHgxb4LkCuqeVU";
+        private string _key = "fcd6d2d4-5a6c-49f0-8da1-39578d1a4863/kAnYPNi5rfN7i4y8GK6UV5pmd116xPw4fcpc3pCT";
 
         public FeatureToggle()
         {
@@ -22,6 +23,21 @@ namespace MeasurementService.FeatureToggle
             if (fh[featureName].IsEnabled)
             {
                 return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> IsCountryAllowed(string country)
+        {
+            StrategyAttributeCountryName SACM;
+            var couldParse = Enum.TryParse(country, true, out SACM);
+            if (couldParse)
+            {
+                var fh = await _config.NewContext().Country(SACM).Build();
+                if (fh["OnlyDK"].IsEnabled)
+                {
+                    return true;
+                }
             }
             return false;
         }

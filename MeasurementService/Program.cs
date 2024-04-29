@@ -7,6 +7,7 @@ using MeasurementInfrastructure;
 using MeasurementInfrastructure.Interfaces;
 using MeasurementRepository;
 using MeasurementService.FeatureToggle;
+using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
@@ -64,6 +65,7 @@ builder.Services.AddScoped<IFeatureToggle, FeatureToggle>();
 #endregion
 
 
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAnyOrigin", policy =>
@@ -76,9 +78,18 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+using (var scopemigrations = app.Services.CreateScope())
+{
+    var services = scopemigrations.ServiceProvider;
+    var context = services.GetRequiredService<MeasurementDbContext>();
+    if (context.Database.GetPendingMigrations().Any())
+    { context.Database.Migrate(); }
+
+}
+
 using var scope = app.Services.CreateScope();
 var measurementService = scope.ServiceProvider.GetRequiredService<IMeasurementService>();
-measurementService.Rebuild();
+//measurementService.Rebuild();
 
 app.UseCors("AllowAnyOrigin");
 

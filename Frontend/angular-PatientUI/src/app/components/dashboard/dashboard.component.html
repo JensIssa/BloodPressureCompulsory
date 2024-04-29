@@ -1,4 +1,4 @@
-<div class="dashboard-container">
+<div *ngIf="isVisible; else notFromDenmark" class="dashboard-container">
   <div class="measurement-container">
     <h2>Add Measurement</h2>
     <form (ngSubmit)="addMeasurement()">
@@ -19,4 +19,8 @@
   </div>
 </div>
 
-
+<ng-template #notFromDenmark>
+  <div class="denied-access-message">
+    Sorry, users outside of Denmark can't access this service.
+  </div>
+</ng-template>

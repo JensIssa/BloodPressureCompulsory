@@ -10,7 +10,6 @@ namespace MeasurementInfrastructure
 {
     public class MeasurementDbContext : DbContext
     {
-        public DbSet<Measurement> Measurements { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,6 +35,7 @@ namespace MeasurementInfrastructure
                 new Measurement()
                     { Id = 5, Date = DateTime.Now, Systolic = 80, Diastolic = 60, IsSeen = false, PatientSSN = "1234567" });
         }
+        public DbSet<Measurement> Measurements { get; set; }
 
     }
 }
